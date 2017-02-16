@@ -1,0 +1,4 @@
+org.springframework.boot.SpringApplicationRunListener=\
+com.elven.demo.springboot1.AppStartListener
+org.springframework.context.ApplicationListener=\
+com.elven.demo.springboot1.AppServerInfoListener

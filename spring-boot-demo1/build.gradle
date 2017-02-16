@@ -1,0 +1,77 @@
+//apply plugin: 'war'
+//bootRepackage.enabled = true
+//
+//def buildTime = new Date().format("yyyyMMddHHmm")
+//def buildDate = new Date().format("yyyyMMdd")
+//
+//war {
+//    baseName = "paycore-main"
+//    extension = "zip"
+//    classifier = buildTime
+//}
+//
+//bootRepackage {
+//    mainClass = 'com.elven.demo.springboot1.Application'
+//}
+//
+//dependencies {
+//
+//    compile "org.springframework.boot:spring-boot-starter-web:1.4.3.RELEASE"
+//    compile "org.springframework.boot:spring-boot-starter-redis:1.4.3.RELEASE"
+////    compile("org.springframework.boot:spring-boot-starter-batch:1.4.3.RELEASE")
+//}
+
+group 'elven-demos'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'org.springframework.boot:spring-boot-starter-test:1.4.3.RELEASE'
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+//    compile group: 'org.mockito', name: 'mockito-core', version: '2.6.8'
+
+    compile "org.springframework.boot:spring-boot-starter-web:1.4.3.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-redis:1.4.3.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:1.4.3.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-amqp:1.4.3.RELEASE"
+
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
+    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.4'
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
+
+    compile group: 'org.apache.poi', name: 'poi', version: '3.15'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
+
+
+    compile group: 'org.apache.lucene', name: 'lucene-core', version: '5.5.3'
+    compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: '5.5.3'
+    compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: '5.5.3'
+    compile group: 'org.apache.lucene', name: 'lucene-queries', version: '5.5.3'
+    compile group: 'org.apache.lucene', name: 'lucene-highlighter', version: '5.5.3'
+    compile group: 'org.apache.lucene', name: 'lucene-memory', version: '5.5.3'
+    // https://mvnrepository.com/artifact/org.apache.lucene/lucene-backward-codecs
+//    compile group: 'org.apache.lucene', name: 'lucene-backward-codecs', version: '5.5.3'
+
+    // https://mvnrepository.com/artifact/us.codecraft/webmagic-core
+    compile group: 'us.codecraft', name: 'webmagic-core', version: '0.6.0'
+    // https://mvnrepository.com/artifact/us.codecraft/webmagic-extension
+    compile group: 'us.codecraft', name: 'webmagic-extension', version: '0.6.0'
+
+    // https://mvnrepository.com/artifact/joda-time/joda-time
+    compile group: 'joda-time', name: 'joda-time', version: '2.9.7'
+
+
+
+
+
+
+}
