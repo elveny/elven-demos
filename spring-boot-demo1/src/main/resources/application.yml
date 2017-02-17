@@ -14,6 +14,10 @@ server:
         accesslog:
             enabled: true
 
+# 日志相关
+logging:
+    level: DEBUG
+    file: ${info.app.name}.log
 
 # 管理监控点设置
 endpoints:

@@ -2,7 +2,7 @@
  * msxf.com Inc.
  * Copyright (c) 2017-2026 All Rights Reserved.
  */
-package com.elven.demo.springboot1.config.rabbitmq;
+package com.elven.demo.springboot1.common.constants;
 
 /**
  * @author qiusheng.wu
@@ -20,5 +20,5 @@ public interface MqConstant {
 
     String DEMO_QUEUE = "DEMO-QUEUE";
     String DEMO_ROUTING_KEY = "DEMO-ROUTING-KEY";
-    String DEMO_BINDING_KEY = "DEMO-BINDING-KEY";
+    String DEMO_BINDING_KEY = "DEMO-ROUTING-KEY";
 }

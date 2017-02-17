@@ -4,6 +4,7 @@
  */
 package com.elven.demo.springboot1.config.rabbitmq;
 
+import com.elven.demo.springboot1.common.constants.MqConstant;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
@@ -89,14 +90,15 @@ public class RabbitMqConfigration {
         return rabbitTemplate;
     }
 
-
-
     /***
      * 配置 topic 类型exchange
      * **/
     @Bean
     public TopicExchange topicExchange(AmqpAdmin rabbitAdmin) {
-        TopicExchange topicExchange = new TopicExchange(MqConstant.DEMO_EXCHANGE_TOPIC, true, false);
+        // 方式一：直接创建
+        // TopicExchange topicExchange = new TopicExchange(MqConstant.DEMO_EXCHANGE_TOPIC, true, false);
+        // 方式二：通过ExchangeBuilder创建
+        TopicExchange topicExchange = (TopicExchange) ExchangeBuilder.topicExchange(MqConstant.DEMO_EXCHANGE_TOPIC).build();
         rabbitAdmin.declareExchange(topicExchange);
         return topicExchange;
     }
@@ -106,19 +108,25 @@ public class RabbitMqConfigration {
      * **/
     @Bean
     public FanoutExchange fanoutExchange(AmqpAdmin rabbitAdmin) {
-        FanoutExchange fanoutExchange = new FanoutExchange(MqConstant.DEMO_EXCHANGE_FANOUT,true,false);
+        // 方式一：直接创建
+        // FanoutExchange fanoutExchange = new FanoutExchange(MqConstant.DEMO_EXCHANGE_FANOUT,true,false);
+        // 方式二：通过ExchangeBuilder创建
+        FanoutExchange fanoutExchange = (FanoutExchange) ExchangeBuilder.fanoutExchange(MqConstant.DEMO_EXCHANGE_FANOUT).build();
         rabbitAdmin.declareExchange(fanoutExchange);
         return fanoutExchange;
     }
 
     /**
-     * 支付核心发送过来的消息队列
+     * 消息订阅端申明消息队列
      **/
     @Bean
-    public Queue payCoreQueue(AmqpAdmin rabbitAdmin) {
-        Queue payCoreQueue = new Queue(MqConstant.DEMO_QUEUE,true);
-        rabbitAdmin.declareQueue(payCoreQueue);
-        return payCoreQueue;
+    public Queue demoQueue(AmqpAdmin rabbitAdmin) {
+        // 方式一：直接创建队列
+        // Queue demoQueue = new Queue(MqConstant.DEMO_QUEUE,true);
+        // 方式二：QueueBuilder创建队列
+        Queue demoQueue = QueueBuilder.nonDurable(MqConstant.DEMO_QUEUE).build();
+        rabbitAdmin.declareQueue(demoQueue);
+        return demoQueue;
     }
 
      /**
@@ -129,8 +137,8 @@ public class RabbitMqConfigration {
        * @Exceptions
        */
     @Bean
-    public Binding bindingExchangePayCoreQueue(Queue payCoreQueue, TopicExchange exchange, AmqpAdmin rabbitAdmin) {
-        Binding binding = BindingBuilder.bind(payCoreQueue).to(exchange).with(MqConstant.DEMO_ROUTING_KEY);
+    public Binding bindingExchangePayCoreQueue(Queue demoQueue, TopicExchange topicExchange, AmqpAdmin rabbitAdmin) {
+        Binding binding = BindingBuilder.bind(demoQueue).to(topicExchange).with(MqConstant.DEMO_BINDING_KEY);
         rabbitAdmin.declareBinding(binding);
         return binding;
     }
