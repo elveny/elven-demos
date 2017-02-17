@@ -1,4 +1,4 @@
-package com.elven.demo.springboot1.config;
+package com.elven.demo.springboot1.config.redis;
 
 import java.lang.reflect.Method;
 
