@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.annotation.RabbitListenerAnnotationBeanPostProcessor;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class RabbitMQListener {
 
     Logger logger = LoggerFactory.getLogger(RabbitMQListener.class);
 
-    @RabbitListener(queues = MqConstant.DEMO_QUEUE, containerFactory = "rabbitListenerContainerFactory")
+    @RabbitListener(queues = MqConstant.DEMO_QUEUE, containerFactory = RabbitListenerAnnotationBeanPostProcessor.DEFAULT_RABBIT_LISTENER_CONTAINER_FACTORY_BEAN_NAME)
     public void processMessage(String content, Channel channel, Message messageSource) throws IOException {
         // ...
         logger.info("收到消息："+content);
