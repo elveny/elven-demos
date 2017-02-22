@@ -6,7 +6,6 @@ package com.elven.demo.springboot1;
 
 import com.elven.demo.springboot1.common.util.LuceneUtil;
 import com.elven.demo.springboot1.common.util.POIUtil;
-import com.elven.demo.springboot1.test.grid.domain.AnkInfo;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -23,9 +22,6 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.RAMDirectory;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -33,13 +29,10 @@ import org.junit.Test;
 import org.springframework.util.ResourceUtils;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static junit.framework.TestCase.assertEquals;
 
 /**
  * @author qiusheng.wu
