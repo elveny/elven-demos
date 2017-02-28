@@ -1,0 +1,25 @@
+# apm tasks
+apm:
+    tasks:
+        - name: PACKAGE_INSERT_ADD
+          single: true
+
+        - name: PACKAGE_INSERT_ALL
+          single: true
+
+        - name: PACKAGE_REMOVE
+          single: true
+          dependencies:
+              - name: PACKAGE_INSERT_ALL
+                status: _PROCSSING
+              - name: PACKAGE_INSERT_ADD
+                status: SUCCESS
+
+        - name: PACKAGE_UPDATE
+          single: true
+          dependencies:
+              - name: PACKAGE_REMOVE
+                status: SUCCESS
+
+        - name: PACKAGE_GENERATE
+          single: true

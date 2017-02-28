@@ -2,10 +2,15 @@ package com.elven.demo.springboot1.test;
 
 import com.elven.demo.springboot1.common.util.HttpClientTool;
 import com.elven.demo.springboot1.common.util.RedisUtil;
+import com.elven.demo.springboot1.config.apm.ApmTasksProperties;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by qiusheng.wu on 2016/12/27.
  */
+@EnableConfigurationProperties(ApmTasksProperties.class)
 @RestController("testController")
 @RequestMapping("/spirngbootdemo1/test")
 public class TestController {
@@ -31,6 +38,9 @@ public class TestController {
 
     @Resource(name = "redisUtil")
     private RedisUtil redisUtil;
+
+    @Autowired
+    private ApmTasksProperties apmTasksProperties;
 
     @RequestMapping("hello/{name}")
     public String hello(@PathVariable("name") String name){
@@ -116,5 +126,30 @@ public class TestController {
         }
 
         return rsp;
+    }
+
+    @RequestMapping("apmTasksTest")
+    public String apmTasksTest(){
+
+        logger.info(""+apmTasksProperties.getTasks().size());
+//        ApmTasksProperties.Task[] list = apmTasksProperties.getTasks();
+//        for(ApmTasksProperties.Task task : list){
+//            logger.info(ToStringBuilder.reflectionToString(task, ToStringStyle.SHORT_PREFIX_STYLE));
+//        }
+
+        logger.info(ToStringBuilder.reflectionToString(apmTasksProperties.getTasks(), ToStringStyle.SHORT_PREFIX_STYLE));
+
+        List<ApmTasksProperties.Task> tasks = apmTasksProperties.getTasks();
+
+        for(ApmTasksProperties.Task task : tasks){
+            logger.info("[task]"+ToStringBuilder.reflectionToString(task, ToStringStyle.SHORT_PREFIX_STYLE));
+            if(!CollectionUtils.isEmpty(task.getDependencies())){
+                for(ApmTasksProperties.Task dependency : task.getDependencies()){
+                    logger.info("[dependency]"+ToStringBuilder.reflectionToString(dependency, ToStringStyle.SHORT_PREFIX_STYLE));
+                }
+            }
+        }
+
+        return "SUCCESS";
     }
 }
