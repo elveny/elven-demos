@@ -6,6 +6,7 @@ package com.elven.demo.springboot1;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.zeroturnaround.zip.FileSource;
@@ -58,14 +59,27 @@ public class ApmTest {
     @Test
     public void test2() throws IOException {
 
-        Collection<File> files = FileUtils.listFiles(new File("D:\\temp\\20170228"), null, false);
+        String filePath = "D:\\temp\\20170228\\F1-TEST-2\\";
+        Collection<File> files = FileUtils.listFiles(new File(filePath), null, false);
         Iterator<File> it = files.iterator();
         List<String> lines = new ArrayList<String>();
         while (it.hasNext()){
             lines.add(it.next().getName());
         }
 
-        IOUtils.writeLines(lines, null, new FileOutputStream("D:\\temp\\20170228\\"+new DateTime().toString("yyyyMMdd")+"_FileList.txt"), Charset.forName("UTF-8"));
+
+
+        IOUtils.writeLines(lines, null, new FileOutputStream(filePath+new DateTime().toString("yyyyMMdd")+"_FileList.txt"), Charset.forName("UTF-8"));
+    }
+
+    @Test
+    public void test2_1() throws IOException {
+
+        String sourceDir = "D:\\temp\\20170228\\F1-TEST-2\\";
+        String targetZip = "D:\\temp\\20170228\\F1-TEST-2_20170228001.zip";
+
+        ZipUtil.pack(new File(sourceDir), new File(targetZip));
+
     }
 
     @Test
@@ -90,5 +104,23 @@ public class ApmTest {
      */
     @Test
     public void test4() {
+    }
+
+    @Test
+    public void test5(){
+        String filePath = "D:\\temp\\20170228\\F1-TEST-1\\F1-TEST-1_20170228001_Contract.txt";
+        File file = new File(filePath);
+    }
+
+    @Test
+    public void test6() {
+        String str = StringUtils.leftPad("11", 3, "0");
+        System.out.println(str);
+    }
+
+    @Test
+    public void test7(){
+        String filePath = "D"+File.separator+"aaaaa"+File.separator+"bbbbb"+File.separator+"ccccc"+File.separator+"ddddd";
+        System.out.println(filePath.substring(filePath.lastIndexOf(File.separator)+1));
     }
 }
