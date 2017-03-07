@@ -5,7 +5,6 @@
 package com.elven.demo.springboot1;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -13,7 +12,10 @@ import org.zeroturnaround.zip.FileSource;
 import org.zeroturnaround.zip.NameMapper;
 import org.zeroturnaround.zip.ZipUtil;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,9 +69,8 @@ public class ApmTest {
             lines.add(it.next().getName());
         }
 
-
-
-        IOUtils.writeLines(lines, null, new FileOutputStream(filePath+new DateTime().toString("yyyyMMdd")+"_FileList.txt"), Charset.forName("UTF-8"));
+        FileUtils.writeLines(new File(filePath+new DateTime().toString("yyyyMMdd")+"_FileList.txt"), "utf-8", lines, null);
+//        IOUtils.writeLines(lines, null, new FileOutputStream(filePath+new DateTime().toString("yyyyMMdd")+"_FileList.txt"), Charset.forName("UTF-8"));
     }
 
     @Test
@@ -122,5 +123,45 @@ public class ApmTest {
     public void test7(){
         String filePath = "D"+File.separator+"aaaaa"+File.separator+"bbbbb"+File.separator+"ccccc"+File.separator+"ddddd";
         System.out.println(filePath.substring(filePath.lastIndexOf(File.separator)+1));
+    }
+
+    @Test
+    public void test8() throws Exception {
+        String encoding = codeString("C:\\Users\\qiusheng.wu\\Downloads\\20170307\\20170307_Filelist.txt");
+//        String encoding = codeString("C:\\Users\\qiusheng.wu\\Downloads\\20170307\\F1-TEST-1_20170307001_Contract.txt");
+        System.out.println(encoding);
+    }
+
+    @Test
+    public void test9(){
+
+        String csn = Charset.defaultCharset().name();
+        System.out.println("字符集："+csn);
+    }
+
+    public String codeString(String fileName) throws Exception{
+        BufferedInputStream bin = new BufferedInputStream(
+                new FileInputStream(fileName));
+        int p = (bin.read() << 8) + bin.read();
+        String code = null;
+        //其中的 0xefbb、0xfffe、0xfeff、0x5c75这些都是这个文件的前面两个字节的16进制数
+        switch (p) {
+            case 0xefbb:
+                code = "UTF-8";
+                break;
+            case 0xfffe:
+                code = "Unicode";
+                break;
+            case 0xfeff:
+                code = "UTF-16BE";
+                break;
+            case 0x5c75:
+                code = "ANSI|ASCII" ;
+                break ;
+            default:
+                code = "GBK";
+        }
+
+        return code;
     }
 }
