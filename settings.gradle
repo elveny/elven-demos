@@ -3,4 +3,5 @@ include 'test1'
 include 'spring-boot-demo1'
 include 'antd-dva-demo1'
 include 'spring-boot-batch1'
+include 'genEntity'
 
