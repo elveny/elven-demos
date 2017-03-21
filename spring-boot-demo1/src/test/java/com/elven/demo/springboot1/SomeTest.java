@@ -5,7 +5,10 @@
 package com.elven.demo.springboot1;
 
 import org.junit.Test;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.StringUtils;
+
+import java.io.IOException;
 
 /**
  * @author qiusheng.wu
@@ -22,5 +25,12 @@ public class SomeTest {
     public void testStringUtils() throws Exception {
         boolean flag = StringUtils.pathEquals("222", "222");
         System.out.println(flag);
+    }
+
+    @Test
+    public void testClassPathResource() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("./sample-data.csv");
+
+        System.out.println(classPathResource.getURL());
     }
 }
