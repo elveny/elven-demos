@@ -33,4 +33,10 @@ public class SomeTest {
 
         System.out.println(classPathResource.getURL());
     }
+
+    @Test
+    public void testStringUtils1(){
+        boolean flag = StringUtils.hasText("xxxxx");
+        System.out.println(flag);
+    }
 }
