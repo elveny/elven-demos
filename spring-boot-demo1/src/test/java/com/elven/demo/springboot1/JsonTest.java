@@ -31,4 +31,17 @@ public class JsonTest {
         System.out.println(JSON.toJSONString(mapValue));
     }
 
+    @Test
+    public void test2(){
+        Address address = new Address(1L, "test");
+        User user = new User(1L, "name", address);
+
+        String json = JSON.toJSONString(user);
+
+        System.out.println(json);
+
+        User user1 = JSON.parseObject(json, User.class);
+        System.out.println(user1.getAddress().getAddr());
+    }
+
 }
