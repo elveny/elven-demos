@@ -4,7 +4,7 @@
  */
 package com.elven.demo.test;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
@@ -25,10 +25,14 @@ import java.util.Date;
  */
 public class MyBase7 {
 
+    /**
+     * # vim ~/.myBase7.ini
+     * App.UserLic.FirstUseOn=1487605350
+     * App.UserLic.LaunchNum=9
+     */
     @Test
     public void firstUseOn(){
         long time = new Date().getTime();
-        System.out.println("1487605350");
         System.out.println(time/1000);
     }
 }
