@@ -17,11 +17,11 @@ public class ${className} extends BaseEntity {
 <#list columns as column>
 
     <#assign autograph = "private " + column.propertyType + " " + column.propertyName + " ;">
-    <#if column.propertyName == "version">
+    <#--<#if column.propertyName == "version">
     /** ${column.columnComment} */ ${"\n\t"}@Version<#if column.propertyType == "java.util.Date">${"\n\t"}@javax.persistence.Temporal(javax.persistence.TemporalType<#if column.columnType == "DATE" || column.columnType == "date">.DATE<#else>.TIMESTAMP</#if>)</#if>
     @Column(name = "${column.columnName}"<#if column.columnSize != 0> ,length = ${column.columnSize}</#if><#if column.isNullable == "NO"> ,nullable = false</#if><#if column.columnKey == "UNI"> ,unique = true</#if>)
     ${autograph}
-    </#if>
+    </#if>-->
     <#if column.propertyName != "id" && column.propertyName != "version">
     /** ${column.columnComment} */ <#if column.propertyType == "java.util.Date">${"\n\t"}@javax.persistence.Temporal(javax.persistence.TemporalType<#if column.columnType == "DATE" || column.columnType == "date">.DATE<#else>.TIMESTAMP</#if>)</#if>
     @Column(name = "${column.columnName}"<#if column.columnSize != 0> ,length = ${column.columnSize}</#if><#if column.isNullable == "NO"> ,nullable = false</#if><#if column.columnKey == "UNI"> ,unique = true</#if>)
@@ -30,7 +30,7 @@ public class ${className} extends BaseEntity {
 </#list>
 
 <#list columns as column>
-    <#if column.propertyName != "id">
+    <#if column.propertyName != "id" && column.propertyName != "version">
     /** ${column.columnComment} */
     public void set${column.propertyName?cap_first} (${column.propertyType} ${column.propertyName}){
         this.${column.propertyName} = ${column.propertyName} ;
