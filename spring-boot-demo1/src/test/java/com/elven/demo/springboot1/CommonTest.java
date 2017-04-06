@@ -13,8 +13,6 @@ import org.junit.Test;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static org.apache.commons.lang3.ObjectUtils.*;
-
 /**
  * @author qiusheng.wu
  * @Filename CommonTest.java
@@ -92,6 +90,12 @@ public class CommonTest {
         System.out.println(GregorianCalendar.getInstance().getTimeInMillis());
         System.out.println(new DateTime().getMillis());
         System.out.println(System.currentTimeMillis());
+    }
+
+    @Test
+    public void test8(){
+        String str = String.format("1111: %s, %s, %d", "222", "333", 444);
+        System.out.println(str);
     }
 
 
