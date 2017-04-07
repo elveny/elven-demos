@@ -83,6 +83,7 @@ public class CommonTest {
         System.out.println(new DateTime(1486433767L).toString("yyyy-MM-dd HH:mm:ss.SSS"));  // 2017.2.6
         System.out.println(new DateTime().getMillis()/1000);  // 当前
         System.out.println(new DateTime().toString("yyyy-MM-dd HH:mm:ss.SSS"));  // 当前
+        System.out.println(new DateTime().toString("yyyyMMddHHmmssSSS"));  // 当前
     }
 
     @Test
