@@ -1,9 +1,10 @@
 package com.msxf.paycore.dal.online.model;
 
+import com.msxf.paycore.dal.base.BaseEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 /**
 * ${comment!""}
