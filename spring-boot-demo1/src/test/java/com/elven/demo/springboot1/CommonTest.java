@@ -4,14 +4,18 @@
  */
 package com.elven.demo.springboot1;
 
+import org.apache.commons.io.FileSystemUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.assertj.core.util.DateUtil;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.UUID;
 
 /**
  * @author qiusheng.wu
@@ -97,6 +101,36 @@ public class CommonTest {
     public void test8(){
         String str = String.format("1111: %s, %s, %d", "222", "333", 444);
         System.out.println(str);
+    }
+
+
+    @Test
+    public void test9(){
+
+        String filename = "20170413.txt";
+
+        String uuid = UUID.randomUUID().toString();
+        System.out.println(uuid);
+
+        String extension = FilenameUtils.getExtension(filename);
+        System.out.println(extension);
+
+        String randomFilename = uuid.replace("-", "").concat(".").concat(extension);
+        System.out.println(randomFilename);
+    }
+
+
+    @Test
+    public void test10() throws IOException {
+        long freeSpaceKb = FileSystemUtils.freeSpaceKb();
+        System.out.println(freeSpaceKb/1024L/1024L);
+
+        freeSpaceKb = FileSystemUtils.freeSpaceKb("D:\\");
+        System.out.println(freeSpaceKb);
+
+        freeSpaceKb = FileSystemUtils.freeSpaceKb("D:\\", 10*1000);
+        System.out.println(freeSpaceKb);
+
     }
 
 
