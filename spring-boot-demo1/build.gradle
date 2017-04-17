@@ -53,6 +53,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-jpa:1.4.3.RELEASE"
     compile "org.springframework.boot:spring-boot-starter-amqp:1.4.3.RELEASE"
     compile "org.springframework.boot:spring-boot-starter-batch:1.4.3.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-velocity:1.4.3.RELEASE"
 
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
     compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.4'
@@ -84,6 +85,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.zeroturnaround/zt-zip
     compile group: 'org.zeroturnaround', name: 'zt-zip', version: '1.11'
+
+
 
 
 
