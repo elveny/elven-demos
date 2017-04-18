@@ -39,4 +39,9 @@ public class SomeTest {
         boolean flag = StringUtils.hasText("xxxxx");
         System.out.println(flag);
     }
+
+    @Test
+    public void currentTimeMillis(){
+        System.out.println(System.currentTimeMillis());
+    }
 }
