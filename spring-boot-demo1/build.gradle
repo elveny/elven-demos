@@ -86,6 +86,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.zeroturnaround/zt-zip
     compile group: 'org.zeroturnaround', name: 'zt-zip', version: '1.11'
 
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.11'
+
+
 
 
 
