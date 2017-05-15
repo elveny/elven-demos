@@ -33,10 +33,10 @@ public class DESUtilsTest {
     @Test
     public void des() throws NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException, InvalidKeyException, IllegalBlockSizeException {
         System.out.println("/////////////////////////////////////////"+DESUtils.ALGORITHM_DES+"///////////////////////////////////////////////////////");
-        DESUtils desUtils = new DESUtils(DESUtils.ALGORITHM_DES,"11111111");
+        DESUtils desUtils = new DESUtils(DESUtils.ALGORITHM_DES,"11111111".getBytes());
         String msg ="abcdefg";
-        byte[] encontent = desUtils.Encrytor(msg);
-        byte[] decontent = desUtils.Decryptor(encontent);
+        byte[] encontent = desUtils.encryptor(msg);
+        byte[] decontent = desUtils.decryptor(encontent);
         System.out.println("明文是:" + msg);
         System.out.println("加密后:" + new String(encontent));
         System.out.println("加密后:" + Base64Utils.encodeToString(encontent));
@@ -47,10 +47,10 @@ public class DESUtilsTest {
     @Test
     public void des3() throws NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException, InvalidKeyException, IllegalBlockSizeException {
         System.out.println("/////////////////////////////////////////"+DESUtils.ALGORITHM_3DES+"///////////////////////////////////////////////////////");
-        DESUtils desUtils = new DESUtils(DESUtils.ALGORITHM_3DES,"111111112222222233333333");
+        DESUtils desUtils = new DESUtils(DESUtils.ALGORITHM_3DES,"111111112222222233333333".getBytes());
         String msg ="abcdefg";
-        byte[] encontent = desUtils.Encrytor(msg);
-        byte[] decontent = desUtils.Decryptor(encontent);
+        byte[] encontent = desUtils.encryptor(msg);
+        byte[] decontent = desUtils.decryptor(encontent);
         System.out.println("明文是:" + msg);
         System.out.println("加密后:" + new String(encontent));
         System.out.println("加密后:" + Base64Utils.encodeToString(encontent));
@@ -61,10 +61,10 @@ public class DESUtilsTest {
     @Test
     public void aes() throws NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException, InvalidKeyException, IllegalBlockSizeException {
         System.out.println("/////////////////////////////////////////"+DESUtils.ALGORITHM_AES+"///////////////////////////////////////////////////////");
-        DESUtils desUtils = new DESUtils(DESUtils.ALGORITHM_AES,"1111111122222222");
+        DESUtils desUtils = new DESUtils(DESUtils.ALGORITHM_AES,"1111111122222222".getBytes());
         String msg ="abcdefg";
-        byte[] encontent = desUtils.Encrytor(msg);
-        byte[] decontent = desUtils.Decryptor(encontent);
+        byte[] encontent = desUtils.encryptor(msg);
+        byte[] decontent = desUtils.decryptor(encontent);
         System.out.println("明文是:" + msg);
         System.out.println("加密后:" + new String(encontent));
         System.out.println("加密后:" + Base64Utils.encodeToString(encontent));
