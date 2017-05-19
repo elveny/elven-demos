@@ -30,5 +30,8 @@ public class UUIDTest {
 
         String uuid1 = UUID.randomUUID().toString();
         System.out.println(uuid1);
+
+        String uuid2 = UUID.randomUUID().toString();
+        System.out.println(uuid2);
     }
 }
