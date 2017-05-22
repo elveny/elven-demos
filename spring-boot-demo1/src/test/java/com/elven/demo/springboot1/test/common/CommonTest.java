@@ -7,15 +7,14 @@ package com.elven.demo.springboot1.test.common;
 import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.DateUtil;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author qiusheng.wu
@@ -131,6 +130,51 @@ public class CommonTest {
         freeSpaceKb = FileSystemUtils.freeSpaceKb("D:\\", 10*1000);
         System.out.println(freeSpaceKb);
 
+    }
+
+    @Test
+    public void mapTest(){
+        Map<String, Object> map = new HashMap<String, Object>();
+    }
+
+    @Test
+    public void StringTest(){
+        String str = "1234567890";
+
+        System.out.println(str.substring(0,2));
+    }
+
+    @Test
+    public void cutInstRespMsgTest(){
+        String instRespMsg = "1234567890123456789012345678901234567890123456789012345678901234567890";
+
+        System.out.println(cutInstRespMsg(instRespMsg));
+        System.out.println(instRespMsg);
+    }
+
+    /**
+     * 截取渠道返回描述
+     * @Description 当instRespMsg长度大于64，则截取64个字
+     * @Params instRespMsg 原字符串
+     * @Return 截取后的字符串
+     * @Exceptions
+     */
+    private String cutInstRespMsg(String instRespMsg){
+        String cutMsg = instRespMsg;
+
+        if(StringUtils.isNotBlank(instRespMsg) && StringUtils.length(instRespMsg) > 64){
+            cutMsg = instRespMsg.substring(0, 64);
+        }
+
+        return cutMsg;
+    }
+
+    @Test
+    public void test11(){
+        String str1 = "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";
+        String str2 = "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";
+        System.out.println(str1.equals(str2));
+        System.out.println(cutInstRespMsg(str2).length());
     }
 
 
