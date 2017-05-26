@@ -24,4 +24,10 @@ public class StringUtilsTester {
         String ss = StringUtils.join(1,2,3);
         System.out.println(ss);
     }
+
+    @Test
+    public void contains(){
+        System.out.println(StringUtils.contains("111222", "1111"));
+        System.out.println(StringUtils.containsAny("111222", "1111"));
+    }
 }
