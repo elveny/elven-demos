@@ -6,6 +6,7 @@ package com.elven.demo.springboot1.test.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,6 +27,9 @@ import java.util.List;
 public interface CardAuthOrderRepository extends JpaRepository<CardAuthOrder, Long>, JpaSpecificationExecutor<CardAuthOrder> {
 
     List<CardAuthOrder> findByAcctNo(String acctNo);
+
+    @Query(value = "select * FROM Card_Auth_Order where acct_No =?1 limit 1", nativeQuery = true)
+    List<CardAuthOrder> findByAcctNoLimit(String acctNo);
 
     List<CardAuthOrder> findByAcctNoAndAcctName(String acctNo, String acctName);
 

@@ -63,4 +63,11 @@ public class JpaTest {
 
 
     }
+
+    @Test
+    public void findByXYZLimitTest(){
+        List<CardAuthOrder> cardAuthOrders = cardAuthOrderRepository.findByAcctNoLimit("6214850109016962");
+        System.out.println(cardAuthOrders.size());
+
+    }
 }
