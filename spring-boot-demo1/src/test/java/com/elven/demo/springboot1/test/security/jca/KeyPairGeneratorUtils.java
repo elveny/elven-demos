@@ -68,4 +68,21 @@ public class KeyPairGeneratorUtils {
         System.out.println("Base64Utils.encodeToString(Encoded):::::"+Base64Utils.encodeToString(publicKey.getEncoded()));
 
     }
+
+    @Test
+    public void genRSAKeyPairTest() throws NoSuchAlgorithmException {
+        KeyPair keyPair = genKeyPair("RSA", 576);
+        PrivateKey privateKey = keyPair.getPrivate();
+        System.out.println("\n::::::::::::::::::::privateKey::::::::::::::::::::\n"+privateKey);
+        System.out.println("Algorithm:::::"+privateKey.getAlgorithm());
+        System.out.println("Format:::::"+privateKey.getFormat());
+        System.out.println("Base64Utils.encodeToString(Encoded):::::"+ Base64Utils.encodeToString(privateKey.getEncoded()));
+
+        PublicKey publicKey = keyPair.getPublic();
+        System.out.println("\n::::::::::::::::::::publicKey::::::::::::::::::::\n"+publicKey);
+        System.out.println("Algorithm:::::"+publicKey.getAlgorithm());
+        System.out.println("Format:::::"+publicKey.getFormat());
+        System.out.println("Base64Utils.encodeToString(Encoded):::::"+Base64Utils.encodeToString(publicKey.getEncoded()));
+
+    }
 }
