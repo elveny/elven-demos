@@ -28,7 +28,7 @@ public class SignatureTest {
 
     @Test
     public void signTest() throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
-        KeyPair keyPair = KeyPairGeneratorUtils.genKeyPair("DSA", 1024);
+        KeyPair keyPair = new KeyPairGeneratorUtils().genKeyPair("DSA", 1024);
         PrivateKey privateKey = keyPair.getPrivate();
         byte[] testdata = { 1, 2, 3, 4, 5 };
         Signature signature = Signature.getInstance(privateKey.getAlgorithm());
@@ -41,7 +41,7 @@ public class SignatureTest {
     @Test
     public void verifySignTest() throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         // 生成密钥对
-        KeyPair keyPair = KeyPairGeneratorUtils.genKeyPair("DSA", 1024);
+        KeyPair keyPair = new KeyPairGeneratorUtils().genKeyPair("DSA", 1024);
 
         // 私钥加签
         PrivateKey privateKey = keyPair.getPrivate();

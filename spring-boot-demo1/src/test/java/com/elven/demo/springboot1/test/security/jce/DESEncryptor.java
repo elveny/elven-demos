@@ -51,7 +51,7 @@ public class DESEncryptor {
      * @return Key 密钥
      * @throws Exception
      */
-    private static Key toKey(byte[] key) throws Exception
+    private Key toKey(byte[] key) throws Exception
     {
 
         // 实例化DES密钥材料
@@ -76,7 +76,7 @@ public class DESEncryptor {
      * @return byte[] 加密数据
      * @throws Exception
      */
-    public static byte[] encrypt(byte[] data, byte[] key) throws Exception
+    public byte[] encrypt(byte[] data, byte[] key) throws Exception
     {
 
         // 还原密钥
@@ -102,7 +102,7 @@ public class DESEncryptor {
      * @return byte[] 解密数据
      * @throws Exception
      */
-    public static byte[] decrypt(byte[] data, byte[] key) throws Exception
+    public byte[] decrypt(byte[] data, byte[] key) throws Exception
     {
 
         // 还原密钥
@@ -126,7 +126,7 @@ public class DESEncryptor {
      * @return byte[] 二进制密钥
      * @throws Exception
      */
-    public static byte[] initKey() throws Exception
+    public byte[] initKey() throws Exception
     {
 
         /*
@@ -154,9 +154,9 @@ public class DESEncryptor {
         String key = "12345678";
         String src = "我有一头小毛驴，我从来也不骑。";
         System.out.println("原文::::"+src);
-        byte[] encrypt = DESEncryptor.encrypt(src.getBytes(), key.getBytes());
+        byte[] encrypt = encrypt(src.getBytes(), key.getBytes());
         System.out.println("密文::::"+Base64Utils.encodeToString(encrypt));
-        byte[] decrypt = DESEncryptor.decrypt(encrypt, key.getBytes());
+        byte[] decrypt = decrypt(encrypt, key.getBytes());
         System.out.println("解密::::"+new String(decrypt));
 
     }
@@ -166,9 +166,9 @@ public class DESEncryptor {
         byte[] key = initKey();
         String src = "我有一头小毛驴，我从来也不骑。";
         System.out.println("原文::::"+src);
-        byte[] encrypt = DESEncryptor.encrypt(src.getBytes(), key);
+        byte[] encrypt = encrypt(src.getBytes(), key);
         System.out.println("密文::::"+Base64Utils.encodeToString(encrypt));
-        byte[] decrypt = DESEncryptor.decrypt(encrypt, key);
+        byte[] decrypt = decrypt(encrypt, key);
         System.out.println("解密::::"+new String(decrypt));
     }
 

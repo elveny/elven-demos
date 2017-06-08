@@ -26,7 +26,7 @@ import java.security.*;
  */
 public class KeyPairGeneratorUtils {
 
-    public static KeyPair genKeyPair(String algorithm, int keysize) throws NoSuchAlgorithmException {
+    public KeyPair genKeyPair(String algorithm, int keysize) throws NoSuchAlgorithmException {
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance(algorithm);
         keyGen.initialize(keysize);
 

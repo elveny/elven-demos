@@ -16,7 +16,7 @@ import java.security.Key;
 import java.security.SecureRandom;
 
 /**
- * @Filename PBEEncryptor.java
+ * @Filename java
  *
  * @description
  *
@@ -51,7 +51,7 @@ public class PBEEncryptor {
      * @return byte[] 盐
      * @throws Exception
      */
-    public static byte[] initSalt() throws Exception
+    public byte[] initSalt() throws Exception
     {
 
         SecureRandom random = new SecureRandom();
@@ -67,7 +67,7 @@ public class PBEEncryptor {
      * @return Key 密钥
      * @throws Exception
      */
-    private static Key toKey(String password) throws Exception
+    private Key toKey(String password) throws Exception
     {
 
         // 密钥材料转换
@@ -94,7 +94,7 @@ public class PBEEncryptor {
      * @return byte[] 加密数据
      * @throws Exception
      */
-    public static byte[] encrypt(byte[] data, String password, byte[] salt)
+    public byte[] encrypt(byte[] data, String password, byte[] salt)
             throws Exception
     {
 
@@ -127,7 +127,7 @@ public class PBEEncryptor {
      * @return byte[] 解密数据
      * @throws Exception
      */
-    public static byte[] decrypt(byte[] data, String password, byte[] salt)
+    public byte[] decrypt(byte[] data, String password, byte[] salt)
             throws Exception
     {
 
@@ -151,13 +151,13 @@ public class PBEEncryptor {
     @Test
     public void test1() throws Exception {
         String password = "111";
-        byte[] salt = PBEEncryptor.initSalt();
+        byte[] salt = initSalt();
 
         String src = "我有一头小毛驴，我从来也不骑。";
         System.out.println("原文::::"+src);
-        byte[] encrypt = PBEEncryptor.encrypt(src.getBytes(), password, salt);
+        byte[] encrypt = encrypt(src.getBytes(), password, salt);
         System.out.println("密文::::"+ Base64Utils.encodeToString(encrypt));
-        byte[] decrypt = PBEEncryptor.decrypt(encrypt, password, salt);
+        byte[] decrypt = decrypt(encrypt, password, salt);
         System.out.println("解密::::"+new String(decrypt));
     }
 
@@ -168,9 +168,9 @@ public class PBEEncryptor {
 
         String src = "我有一头小毛驴，我从来也不骑。";
         System.out.println("原文::::"+src);
-        byte[] encrypt = PBEEncryptor.encrypt(src.getBytes(), password, salt);
+        byte[] encrypt = encrypt(src.getBytes(), password, salt);
         System.out.println("密文::::"+ Base64Utils.encodeToString(encrypt));
-        byte[] decrypt = PBEEncryptor.decrypt(encrypt, password, salt);
+        byte[] decrypt = decrypt(encrypt, password, salt);
         System.out.println("解密::::"+new String(decrypt));
     }
 }

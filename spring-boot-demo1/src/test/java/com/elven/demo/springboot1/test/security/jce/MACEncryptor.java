@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
 /**
- * @Filename MACEncryptor.java
+ * @Filename java
  *
  * @description
  *
@@ -38,7 +38,7 @@ public class MACEncryptor {
      * @return byte[] 密钥
      * @throws Exception
      */
-    public static byte[] initKey(String algorithm) throws NoSuchAlgorithmException {
+    public byte[] initKey(String algorithm) throws NoSuchAlgorithmException {
 
         // 加入BouncyCastleProvider支持
         Security.addProvider(new BouncyCastleProvider());
@@ -58,7 +58,7 @@ public class MACEncryptor {
      * @param bytes
      * @return
      */
-    public static String bytes2Hex(byte[] bytes){
+    public String bytes2Hex(byte[] bytes){
         // 做十六进制转换
         return HexUtils.toHexString(bytes);
     }
@@ -71,7 +71,7 @@ public class MACEncryptor {
      * @return
      * @throws Exception
      */
-    public static byte[] encode(String algorithm, byte[] data, byte[] key) throws NoSuchAlgorithmException, InvalidKeyException
+    public byte[] encode(String algorithm, byte[] data, byte[] key) throws NoSuchAlgorithmException, InvalidKeyException
 
     {
 
@@ -94,8 +94,8 @@ public class MACEncryptor {
     @Test
     public void test1() throws NoSuchAlgorithmException, InvalidKeyException {
         byte[] data = "我有一头小毛驴，我从来也不骑。".getBytes();
-        System.out.println(MACEncryptor.bytes2Hex(MACEncryptor.encode("HmacMD2", data, initKey("HmacMD2"))));
-        System.out.println(MACEncryptor.bytes2Hex(MACEncryptor.encode("HmacMD4", data, initKey("HmacMD4"))));
-        System.out.println(MACEncryptor.bytes2Hex(MACEncryptor.encode("HmacSHA224", data, initKey("HmacSHA224"))));
+        System.out.println(bytes2Hex(encode("HmacMD2", data, initKey("HmacMD2"))));
+        System.out.println(bytes2Hex(encode("HmacMD4", data, initKey("HmacMD4"))));
+        System.out.println(bytes2Hex(encode("HmacSHA224", data, initKey("HmacSHA224"))));
     }
 }
