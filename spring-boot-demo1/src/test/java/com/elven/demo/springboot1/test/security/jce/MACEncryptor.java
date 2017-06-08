@@ -5,6 +5,7 @@
 package com.elven.demo.springboot1.test.security.jce;
 
 import org.apache.tomcat.util.buf.HexUtils;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.Test;
 
 import javax.crypto.KeyGenerator;
@@ -13,6 +14,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.Security;
 
 /**
  * @Filename MACEncryptor.java
@@ -32,14 +34,14 @@ import java.security.NoSuchAlgorithmException;
 public class MACEncryptor {
     /**
      * 初始化密钥
-     *
+//     *
      * @return byte[] 密钥
      * @throws Exception
      */
     public static byte[] initKey(String algorithm) throws NoSuchAlgorithmException {
 
         // 加入BouncyCastleProvider支持
-//        Security.addProvider(new BouncyCastleProvider());
+        Security.addProvider(new BouncyCastleProvider());
 
         // 初始化KeyGenerator
         KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
@@ -74,7 +76,7 @@ public class MACEncryptor {
     {
 
         // 加入BouncyCastleProvider支持
-//        Security.addProvider(new BouncyCastleProvider());
+        Security.addProvider(new BouncyCastleProvider());
 
         // 还原密钥
         SecretKey secretKey = new SecretKeySpec(key, algorithm);
