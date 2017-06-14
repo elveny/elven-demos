@@ -2,7 +2,7 @@
  * elven.tech Inc.
  * Copyright (c) 2017-2026 All Rights Reserved.
  */
-package com.elven.demo.springboot1.test.security;
+package com.elven.demo.springboot1.test.security.provider;
 
 import org.junit.Test;
 
@@ -32,7 +32,7 @@ public class ProviderTest {
                 .getProviders();
 
         for(Provider provider : providers){
-            System.out.println("name::::"+provider.getName());
+            System.out.println("name::::"+provider.getName()+", version:"+provider.getVersion()+", info:"+provider.getInfo());
 
             Set<Provider.Service> services = provider.getServices();
 
@@ -40,5 +40,18 @@ public class ProviderTest {
                 System.out.println("service::::"+service);
             }
         }
+    }
+
+    @Test
+    public void addProvide(){
+        java.security.Security.addProvider(new MyProvider("MyProvider", 0.1, "测试用"));
+        java.security.Security.insertProviderAt(new MyProvider("MyProvider", 0.1, "测试用"), 1);
+        getAllProviders();
+    }
+
+    @Test
+    public void insertProviderAt(){
+        java.security.Security.insertProviderAt(new MyProvider("MyProvider", 0.1, "测试用"), 1);
+        getAllProviders();
     }
 }
