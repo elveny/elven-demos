@@ -4,6 +4,7 @@
  */
 package com.elven.demo.springboot1.test.paygw.reconciliation;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -16,7 +17,7 @@ import java.math.BigDecimal;
  * <li>Version: 1.0</li>
  * <li>Content: create</li>
  */
-public class Trans {
+public class Trans implements Serializable{
     private String transNo;
     private String transStatus;
     private BigDecimal transAmt;
