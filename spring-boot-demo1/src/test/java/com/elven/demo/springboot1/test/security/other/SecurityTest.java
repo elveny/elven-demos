@@ -2,15 +2,16 @@
  * elven.tech Inc.
  * Copyright (c) 2017-2026 All Rights Reserved.
  */
-package com.elven.demo.springboot1.test.security.provider;
+package com.elven.demo.springboot1.test.security.other;
 
 import org.junit.Test;
 
 import java.security.Provider;
+import java.security.Security;
 import java.util.Set;
 
 /**
- * @Filename ProviderTest.java
+ * @Filename SecurityTest.java
  *
  * @description
  *
@@ -24,7 +25,7 @@ import java.util.Set;
  * <li>Version: 1.0</li>
  * <li>Content: create</li>
  */
-public class ProviderTest {
+public class SecurityTest {
 
     @Test
     public void getAllProviders(){
@@ -53,5 +54,29 @@ public class ProviderTest {
     public void insertProviderAt(){
         java.security.Security.insertProviderAt(new MyProvider("MyProvider", 0.1, "测试用"), 1);
         getAllProviders();
+    }
+
+    @Test
+    public void getProvider(){
+        System.out.println(Security.getProvider("SUN"));
+    }
+
+    @Test
+    public void removeProvider(){
+        addProvide();
+        Security.removeProvider("MyProvider");
+        getAllProviders();
+
+        Security.getProperty("securerandom.source");
+    }
+
+    /**
+     * 获取$JAVA_HOME/jre/lib/security/java.security中配置的属性
+     */
+    @Test
+    public void getProperty(){
+        System.out.println(Security.getProperty("security.other.1"));
+        System.out.println(Security.getProperty("securerandom.source"));
+        System.out.println(Security.getProperty("securerandom.strongAlgorithms"));
     }
 }
