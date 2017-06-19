@@ -177,5 +177,14 @@ public class CommonTest {
         System.out.println(cutInstRespMsg(str2).length());
     }
 
+    @Test
+    public void test12(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("weight", null);
+        Integer nowWeight = Integer.parseInt(map.get("weight").toString());
+        System.out.println(nowWeight);
+
+    }
+
 
 }
