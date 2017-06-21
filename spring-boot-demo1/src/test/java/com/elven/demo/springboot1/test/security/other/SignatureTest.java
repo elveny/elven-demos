@@ -63,13 +63,13 @@ public class SignatureTest {
         // 步骤一：创建Signature对象
         Signature signature = Signature.getInstance("SHA1WithRSA");
 
-        // 步骤二：用私钥初始化Signature对象
+        // 步骤二：用公钥初始化Signature对象
         signature.initVerify(keypair.getPublic());
 
         // 步骤三：更新数据
         signature.update(data.getBytes());
 
-        // 步骤四：数字签名
+        // 步骤四：验证签名
         boolean verify = signature.verify(sign);
         System.out.println("验签结果："+verify);
 
