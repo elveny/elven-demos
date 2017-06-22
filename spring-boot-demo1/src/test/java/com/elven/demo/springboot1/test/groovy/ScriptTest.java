@@ -6,9 +6,12 @@ package com.elven.demo.springboot1.test.groovy;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyObject;
 import groovy.lang.Script;
 import org.junit.Test;
+import org.springframework.util.ResourceUtils;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,5 +65,13 @@ public class ScriptTest {
         script.setBinding(binding);
         Object result = script.run();
         System.out.println(result);
+    }
+
+    @Test
+    public void parseClassTest() throws IOException, IllegalAccessException, InstantiationException {
+        Class groovyClass = (Class<Script>)new GroovyClassLoader().parseClass(ResourceUtils.getFile("E:\\code\\idea\\elven\\elven-demos\\spring-boot-demo1\\src\\test\\java\\com\\elven\\demo\\springboot1\\test\\groovy\\XmlParserTest.groovy"));
+
+        GroovyObject instance = (GroovyObject)groovyClass.newInstance();//proxy
+        instance.invokeMethod("test1", null);
     }
 }
