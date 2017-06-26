@@ -11,6 +11,7 @@ import org.springframework.util.ObjectUtils;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
+import java.security.AlgorithmParameters;
 import java.security.Key;
 
 /**
@@ -243,5 +244,119 @@ public class CipherTest {
         out = ByteUtils.concat(out, temp);
 
         return out;
+    }
+
+    @Test
+    public void wrapKeyTest() throws Exception {
+
+        ///////////////////////////////Cipher wrap/////////////////////////////////////////
+        // 步骤一：创建Cipher对象
+        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+
+        // 步骤二：初始化Cipher对象为wrap模式
+        cipher.init(Cipher.WRAP_MODE, toKey("11111111"));
+
+        // 步骤三：wrap密钥
+        Key key = toKey("12345678");
+        System.out.println("key:"+Base64Utils.encodeToString(key.getEncoded()));
+        String algorithm = key.getAlgorithm();
+        byte[] wrappedKey = cipher.wrap(key);
+        System.out.println("wrapKey:"+Base64Utils.encodeToString(wrappedKey));
+
+        ///////////////////////////////Cipher unwrap/////////////////////////////////////////
+        // 步骤一：创建Cipher对象
+        cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+
+        // 步骤二：初始化Cipher对象为wrap模式
+        cipher.init(Cipher.UNWRAP_MODE, toKey("11111111"));
+
+        // 步骤三：unwrap密钥
+        Key unwrappedKey = cipher.unwrap(wrappedKey, algorithm, Cipher.SECRET_KEY);
+        System.out.println("unwrappedKey:"+Base64Utils.encodeToString(unwrappedKey.getEncoded()));
+
+    }
+
+    @Test
+    public void getParametersTest() throws Exception {
+        System.out.println("///////////////////////////////getParameters/////////////////////////////////////////");
+
+        ///////////////////////////////Cipher加密/////////////////////////////////////////
+        // 步骤一：创建Cipher对象
+        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+
+        // 步骤二：初始化Cipher对象为加密模式
+        cipher.init(Cipher.ENCRYPT_MODE, toKey("12345678"));
+
+        // 步骤三：加密操作
+        String originalText =  "我有一只小毛驴我从来也不骑";
+        System.out.println("原文："+originalText);
+        byte[] cipherText = cipher.doFinal(originalText.getBytes());
+        System.out.println("密文："+Base64Utils.encodeToString(cipherText));
+
+        // 步骤四：获取AlgorithmParameters
+        AlgorithmParameters algParams = cipher.getParameters();
+        System.out.println("algParams:"+algParams);
+
+
+        ///////////////////////////////Cipher解密/////////////////////////////////////////
+        // 步骤一：创建Cipher对象
+        cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+
+        // 步骤二：初始化Cipher对象为解密模式
+        cipher.init(Cipher.DECRYPT_MODE, toKey("12345678"));
+
+        // 步骤三：解密操作
+        byte[] plainText = cipher.doFinal(cipherText);
+        System.out.println("明文："+new String(plainText));
+
+        // 步骤四：获取AlgorithmParameters
+        AlgorithmParameters algParams1 = cipher.getParameters();
+        System.out.println("algParams1:"+algParams1);
+
+        int outputSize = cipher.getOutputSize(1);
+        System.out.println("outputSize:"+outputSize);
+    }
+
+    @Test
+    public void getOutputSizeTest() throws Exception {
+        System.out.println("///////////////////////////////getParameters/////////////////////////////////////////");
+
+        ///////////////////////////////Cipher加密/////////////////////////////////////////
+        // 步骤一：创建Cipher对象
+        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+
+        // 步骤二：初始化Cipher对象为加密模式
+        cipher.init(Cipher.ENCRYPT_MODE, toKey("12345678"));
+
+        // 步骤三：加密操作
+        String originalText =  "我有一只小毛驴我从来也不骑";
+        System.out.println("原文："+originalText);
+        byte[] cipherText = cipher.doFinal(originalText.getBytes());
+        System.out.println("密文："+Base64Utils.encodeToString(cipherText));
+
+        // 步骤四：获取OutputSize
+        int outputSize = cipher.getOutputSize(1024);
+        System.out.println("outputSize:"+outputSize);
+
+        int outputSize1 = cipher.getOutputSize(2048);
+        System.out.println("outputSize1:"+outputSize1);
+
+
+        ///////////////////////////////Cipher解密/////////////////////////////////////////
+        // 步骤一：创建Cipher对象
+        cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+
+        // 步骤二：初始化Cipher对象为解密模式
+        cipher.init(Cipher.DECRYPT_MODE, toKey("12345678"));
+
+        // 步骤三：解密操作
+        byte[] plainText = cipher.doFinal(cipherText);
+        System.out.println("明文："+new String(plainText));
+
+        // 步骤四：获取AlgorithmParameters
+        AlgorithmParameters algParams1 = cipher.getParameters();
+        System.out.println("algParams1:"+algParams1);
+
+
     }
 }
