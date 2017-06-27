@@ -72,7 +72,6 @@ public class MACEncryptor {
      * @throws Exception
      */
     public byte[] encode(String algorithm, byte[] data, byte[] key) throws NoSuchAlgorithmException, InvalidKeyException
-
     {
 
         // 加入BouncyCastleProvider支持

@@ -2,7 +2,7 @@
  * elven.tech Inc.
  * Copyright (c) 2017-2026 All Rights Reserved.
  */
-package com.elven.demo.springboot1.test.security.other;
+package com.elven.demo.springboot1.test.security.javase8.guides;
 
 import org.junit.Test;
 import org.springframework.util.Base64Utils;
