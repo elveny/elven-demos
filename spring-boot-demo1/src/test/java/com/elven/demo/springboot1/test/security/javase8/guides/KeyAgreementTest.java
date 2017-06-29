@@ -83,6 +83,9 @@ public class KeyAgreementTest {
         // （4）生成A的公钥备用
         byte[] publicEncoded_A = keyPair_A.getPublic().getEncoded();
 
+        System.out.println("keyPair_A.getPrivate:"+Base64Utils.encodeToString(keyPair_A.getPrivate().getEncoded()));
+        System.out.println("keyPair_A.getPublic："+Base64Utils.encodeToString(keyPair_A.getPublic().getEncoded()));
+
         ///////////////////////////////[B方]步骤一：转换A的公钥////////////////////////////////////////////////////
         // （1）创建KeyFactory
         KeyFactory keyFactory_B = KeyFactory.getInstance("DH");
@@ -105,6 +108,8 @@ public class KeyAgreementTest {
         // （4）生成A的公钥备用
         byte[] publicEncoded_B = keyPair_B.getPublic().getEncoded();
 
+        System.out.println("keyPair_B.getPrivate:"+Base64Utils.encodeToString(keyPair_B.getPrivate().getEncoded()));
+        System.out.println("keyPair_B.getPublic："+Base64Utils.encodeToString(keyPair_B.getPublic().getEncoded()));
 
         ///////////////////////////////[A方]步骤二：转换B的公钥，并doPhase////////////////////////////////////////////////////
         // （1）创建KeyFactory

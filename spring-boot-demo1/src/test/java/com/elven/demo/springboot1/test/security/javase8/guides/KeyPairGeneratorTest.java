@@ -88,4 +88,27 @@ public class KeyPairGeneratorTest {
         System.out.println("publicKey.getFormat:"+publicKey.getFormat());
         System.out.println("publicKey.getEncoded:"+ Base64Utils.encodeToString(publicKey.getEncoded()));
     }
+
+
+    @Test
+    public void test4() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchProviderException {
+        // 步骤一：创建
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+
+        // 步骤二：初始化
+        keyPairGenerator.initialize(2048);
+
+        // 步骤三：生成KeyPair
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+
+        PrivateKey privateKey = keyPair.getPrivate();
+        System.out.println("privateKey.getAlgorithm:"+privateKey.getAlgorithm());
+        System.out.println("privateKey.getFormat:"+privateKey.getFormat());
+        System.out.println("privateKey.getEncoded:"+ Base64Utils.encodeToString(privateKey.getEncoded()));
+
+        PublicKey publicKey = keyPair.getPublic();
+        System.out.println("publicKey.getAlgorithm:"+publicKey.getAlgorithm());
+        System.out.println("publicKey.getFormat:"+publicKey.getFormat());
+        System.out.println("publicKey.getEncoded:"+ Base64Utils.encodeToString(publicKey.getEncoded()));
+    }
 }
