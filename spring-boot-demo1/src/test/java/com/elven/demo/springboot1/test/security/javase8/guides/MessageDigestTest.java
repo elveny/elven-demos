@@ -52,4 +52,22 @@ public class MessageDigestTest {
 
     }
 
+    @Test
+    public void test() throws NoSuchAlgorithmException {
+
+        MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
+        MessageDigest sha12 = MessageDigest.getInstance("SHA-1");
+        MessageDigest sha123 = MessageDigest.getInstance("SHA-1");
+
+        sha1.update("我有一头小毛驴我从来也不骑".getBytes());
+        System.out.println(Base64Utils.encodeToString(sha1.digest()));
+
+        sha12.update("我有一头小毛驴我从来也不骑".getBytes());
+        System.out.println(Base64Utils.encodeToString(sha12.digest()));
+
+        sha123.update("我有一头小毛驴我从来也不骑".getBytes());
+        System.out.println(Base64Utils.encodeToString(sha123.digest()));
+
+    }
+
 }

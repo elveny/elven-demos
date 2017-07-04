@@ -111,4 +111,75 @@ public class KeyPairGeneratorTest {
         System.out.println("publicKey.getFormat:"+publicKey.getFormat());
         System.out.println("publicKey.getEncoded:"+ Base64Utils.encodeToString(publicKey.getEncoded()));
     }
+
+    @Test
+    public void test5() throws NoSuchAlgorithmException, NoSuchProviderException {
+        // 步骤一：创建
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
+
+        // 步骤二：初始化
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        keyGen.initialize(1024, random);
+
+        // 步骤三：生成KeyPair
+        KeyPair keyPair = keyGen.generateKeyPair();
+
+        // 步骤四：打印
+        printf(keyPair);
+    }
+
+    @Test
+    public void test6() throws NoSuchAlgorithmException, NoSuchProviderException {
+        // 步骤一：创建
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
+
+        // 步骤二：初始化
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        random.setSeed("12345678".getBytes());
+//        random.setSeed(12345678);
+        keyGen.initialize(1024, random);
+
+        // 步骤三：生成KeyPair
+        KeyPair keyPair = keyGen.generateKeyPair();
+
+        // 步骤四：打印
+        printf(keyPair);
+    }
+
+    @Test
+    public void test7() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException {
+        // 步骤一：创建
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
+
+        // 步骤二：初始化
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        random.setSeed("12345678".getBytes());
+//        random.setSeed(12345678);
+        BigInteger p = new BigInteger("1024");
+        BigInteger q = new BigInteger("16");
+        BigInteger g = new BigInteger("87");
+        DSAParameterSpec dsaSpec = new DSAParameterSpec(p, q, g);
+
+        keyGen.initialize(dsaSpec, random);
+
+        // 步骤三：生成KeyPair
+        KeyPair keyPair = keyGen.generateKeyPair();
+
+        // 步骤四：打印
+        printf(keyPair);
+    }
+
+    private void printf(KeyPair keyPair){
+        PrivateKey privateKey = keyPair.getPrivate();
+        System.out.println("privateKey.getAlgorithm:"+privateKey.getAlgorithm());
+        System.out.println("privateKey.getFormat:"+privateKey.getFormat());
+        System.out.println("privateKey.getEncoded.length:"+ privateKey.getEncoded().length);
+        System.out.println("privateKey.getEncoded:"+ Base64Utils.encodeToString(privateKey.getEncoded()));
+
+        PublicKey publicKey = keyPair.getPublic();
+        System.out.println("publicKey.getAlgorithm:"+publicKey.getAlgorithm());
+        System.out.println("publicKey.getFormat:"+publicKey.getFormat());
+        System.out.println("publicKey.getEncoded.length:"+ publicKey.getEncoded().length);
+        System.out.println("publicKey.getEncoded:"+ Base64Utils.encodeToString(publicKey.getEncoded()));
+    }
 }
