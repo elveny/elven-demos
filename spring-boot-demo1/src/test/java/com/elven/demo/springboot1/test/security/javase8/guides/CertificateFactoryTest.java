@@ -8,8 +8,10 @@ import org.junit.Test;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.ResourceUtils;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.cert.*;
 import java.util.Collection;
 import java.util.Iterator;
@@ -91,7 +93,20 @@ public class CertificateFactoryTest {
         while (iterator.hasNext()){
             System.out.println(iterator.next());
         }
+    }
 
+    @Test
+    public void generateCertificateTest1() throws IOException, CertificateException {
+        FileInputStream fis = new FileInputStream(ResourceUtils.getFile("classpath:test_demos_test1.cer"));
+        BufferedInputStream bis = new BufferedInputStream(fis);
+
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+        while (bis.available() > 0) {
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            Certificate cert = cf.generateCertificate(bis);
+            System.out.println(cert.toString());
+        }
 
     }
 

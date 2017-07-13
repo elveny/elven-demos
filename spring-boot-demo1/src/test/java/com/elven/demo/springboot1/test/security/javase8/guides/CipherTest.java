@@ -8,11 +8,15 @@ import org.junit.Test;
 import org.springframework.data.redis.util.ByteUtils;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.ObjectUtils;
+import sun.security.util.Password;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
-import java.security.AlgorithmParameters;
-import java.security.Key;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.PBEParameterSpec;
+import java.io.IOException;
+import java.security.*;
+import java.security.spec.InvalidKeySpecException;
 
 /**
  * @Filename CipherTest.java
@@ -357,6 +361,77 @@ public class CipherTest {
         AlgorithmParameters algParams1 = cipher.getParameters();
         System.out.println("algParams1:"+algParams1);
 
+    }
 
+    @Test
+    public void AESTest() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        // 步骤一：生成密钥
+        KeyGenerator keygen = KeyGenerator.getInstance("AES");
+        SecretKey aesKey = keygen.generateKey();
+
+        // 步骤二：加密
+        Cipher aesCipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+
+        aesCipher.init(Cipher.ENCRYPT_MODE, aesKey);
+
+        String cleartext = "我有一只小毛驴我从来也不骑";
+        System.out.println("cleartext::::"+cleartext);
+
+        byte[] ciphertext = aesCipher.doFinal(cleartext.getBytes());
+        System.out.println("ciphertext::::"+Base64Utils.encodeToString(ciphertext));
+
+        // 步骤三：解密
+        aesCipher.init(Cipher.DECRYPT_MODE, aesKey);
+        byte[] plaintext = aesCipher.doFinal(ciphertext);
+        System.out.println("plaintext::::"+new String(plaintext));
+    }
+
+    @Test
+    public static void PBETest() throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, IOException {
+
+        PBEKeySpec pbeKeySpec;
+        PBEParameterSpec pbeParamSpec;
+        SecretKeyFactory keyFac;
+
+        // Salt
+        byte[] salt = {
+                (byte)0xc7, (byte)0x73, (byte)0x21, (byte)0x8c,
+                (byte)0x7e, (byte)0xc8, (byte)0xee, (byte)0x99
+        };
+
+        // Iteration count
+        int count = 1000;
+
+        // Create PBE parameter set
+        pbeParamSpec = new PBEParameterSpec(salt, count);
+
+        // Prompt user for encryption password.
+        // Collect user password as char array (using the
+        // "readPassword" method from above), and convert
+        // it into a SecretKey object, using a PBE key
+        // factory.
+        System.out.print("Enter encryption password:  ");
+        System.out.flush();
+        pbeKeySpec = new PBEKeySpec(Password.readPassword(System.in));
+//        pbeKeySpec = new PBEKeySpec("111111".toCharArray());
+        keyFac = SecretKeyFactory.getInstance("PBEWithHmacSHA256AndAES_256");
+        SecretKey pbeKey = keyFac.generateSecret(pbeKeySpec);
+
+        // Create PBE Cipher
+        Cipher pbeCipher = Cipher.getInstance("PBEWithHmacSHA256AndAES_256");
+
+        // Initialize PBE Cipher with key and parameters
+        pbeCipher.init(Cipher.ENCRYPT_MODE, pbeKey, pbeParamSpec);
+
+        // Our cleartext
+        byte[] cleartext = "This is another example".getBytes();
+
+        // Encrypt the cleartext
+        byte[] ciphertext = pbeCipher.doFinal(cleartext);
+
+    }
+
+    public static void main(String[] args) throws NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, IOException, BadPaddingException, InvalidAlgorithmParameterException, InvalidKeySpecException {
+        PBETest();
     }
 }
