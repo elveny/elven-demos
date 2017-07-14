@@ -35,7 +35,7 @@ public class AlgorithmParametersTest {
     public void AlgorithmParametersTest() throws NoSuchAlgorithmException, IOException, InvalidParameterSpecException {
         AlgorithmParameters  algorithmParameters = AlgorithmParameters.getInstance("DSA");
 
-        algorithmParameters.init("12345678".getBytes(), "RAW");
+        algorithmParameters.init(Base64Utils.decodeFromString("MIGdAkEApmWyqABgZy8BcqgAlt7joGnKyXbNWf+fsY7liip2Gk/hDyiqCMEiLoAatDKgDxedRTnlWAWA3LZi31/pSSBPuQIVAJ9vx2RI/6Re88y07oXjLeQfPJPJAkEAmZcVyUyTNgQCpxwtUoISdqzyDkKX/Vt+nZRGz4xqlrKfwiTqCxxnciehEHvh6my+a0Ch3AigIwZPMqS/+ZhwDw=="), "RAW");
 
         System.out.println("getEncoded:"+ Base64Utils.encodeToString(algorithmParameters.getEncoded()));
 
@@ -57,6 +57,6 @@ public class AlgorithmParametersTest {
 
         System.out.println("getP:"+ dsaParameterSpec.getP());
         System.out.println("getG:"+ dsaParameterSpec.getG());
-        System.out.println("getQ    :"+ dsaParameterSpec.getQ());
+        System.out.println("getQ:"+ dsaParameterSpec.getQ());
     }
 }

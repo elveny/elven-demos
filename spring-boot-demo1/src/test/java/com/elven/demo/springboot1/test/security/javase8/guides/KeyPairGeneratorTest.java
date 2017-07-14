@@ -156,8 +156,8 @@ public class KeyPairGeneratorTest {
         random.setSeed("12345678".getBytes());
 //        random.setSeed(12345678);
         BigInteger p = new BigInteger("1024");
-        BigInteger q = new BigInteger("16");
-        BigInteger g = new BigInteger("87");
+        BigInteger q = new BigInteger("160");
+        BigInteger g = new BigInteger("160");
         DSAParameterSpec dsaSpec = new DSAParameterSpec(p, q, g);
 
         keyGen.initialize(dsaSpec, random);
