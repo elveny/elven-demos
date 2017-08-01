@@ -14,9 +14,11 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.util.StopWatch;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author qiusheng.wu
@@ -114,5 +116,57 @@ public class POITest {
 
         logger.info("{}", stopWatch.prettyPrint());
 
+    }
+
+
+    @Test
+    public void batchDeductTest() throws IOException {
+        Map<String, List<String[]>> data = POIUtil.parse(ResourceUtils.getFile("C:\\Users\\qiusheng.wu\\Downloads\\bbbbbb.xlsx"));
+
+        for(String key : data.keySet()){
+            System.out.println("key:::::"+key);
+
+            List<String[]> list = data.get(key);
+            StringBuilder stringBuilder = new StringBuilder("");
+            int i = 0;
+            for(String[] strs : list){
+                String uuid = UUID.randomUUID().toString().replace("-", "");
+                String date = "20170728";
+                String deptCode = strs[5];
+                String z = "0";
+                String acctNo = strs[2];
+                String acctName = strs[1];
+                String z2 = "01";
+                String certNo = strs[3];
+                String transAmt = strs[4];
+                String z3 = "正常扣款";
+                String z4 = "100861001001";
+                String provName = strs[8];
+                String cityName = strs[10];
+                String prodCode = "0000500";
+                String userid = strs[11];
+                String systemid = "paycore";
+                String secene = "0302";
+                String z5 = "201703271738";
+                String z6 = "1";
+                String phoneNo = "15808096890";
+                String z7 = "1";
+
+                System.out.println(uuid+"|"+date+"|"+deptCode+"|"+z+"|"+acctNo+"|"+acctName+"|"+z2+"|"+certNo+"|"+transAmt+"|"+z3+"|"+z4+"|"+provName+"|"+cityName+"|"+prodCode+"|"+userid+"|"+systemid+"|"+secene+"|"+z5+"|"+z6+"|"+phoneNo+"|"+z7);
+
+                if(i > 0){
+                    stringBuilder.append(uuid).append("|").append(date).append("|").append(deptCode).append("|").append(z).append("|").append(acctNo).append("|").append(acctName).append("|").append(z2).append("|").append(certNo).append("|").append(transAmt).append("|").append(z3).append("|").append(z4).append("|").append(provName).append("|").append(cityName).append("|").append(prodCode).append("|").append(userid).append("|").append(systemid).append("|").append(secene).append("|").append(z5).append("|").append(z6).append("|").append(phoneNo).append("|").append(z7).append("\n");
+                }
+
+                i++;
+            }
+
+            FileOutputStream fos = new FileOutputStream(ResourceUtils.getFile("C:\\Users\\qiusheng.wu\\Downloads\\bbbbbb.txt"));
+            fos.write(stringBuilder.toString().getBytes());
+            fos.flush();
+            fos.close();
+
+            System.out.println(":::::::::::::::::::::::end::::::::::::::::"+key);
+        }
     }
 }

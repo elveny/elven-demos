@@ -90,9 +90,11 @@ dependencies {
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.11'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15
-    compile group: 'org.bouncycastle', name: 'bcprov-jdk15', version: '1.46'
+//    compile group: 'org.bouncycastle', name: 'bcprov-jdk15', version: '1.46'
 
+    compile "org.bouncycastle:bcpkix-jdk15on:1.53"
 
+    compile files('libs/pay-gate-signature-1.0.4.jar')
 
 
 

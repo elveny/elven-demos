@@ -37,4 +37,13 @@ public class UUIDTest {
         String uuid3 = UUID.randomUUID().toString();
         System.out.println(uuid3);
     }
+
+    @Test
+    public void test2(){
+
+        for(int i= 0; i<250; i++){
+            String uuid = UUID.randomUUID().toString().replace("-", "");
+            System.out.println(uuid);
+        }
+    }
 }
