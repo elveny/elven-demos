@@ -6,6 +6,7 @@ package com.elven.demo.springboot1.test.common;
 
 import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.DateUtil;
@@ -186,5 +187,120 @@ public class CommonTest {
 
     }
 
+    @Test
+    public void test13(){
+        // 测试打字：替换掉idea的jre之后再没有搜狗输入法卡的问题了。
+        int i = NumberUtils.toInt(null, 1);
+        System.out.println(i);
+
+        i = NumberUtils.toInt("1111.00", 1);
+        System.out.println(i);
+
+        i = NumberUtils.toInt("1111", 1);
+        System.out.println(i);
+
+        i = NumberUtils.toInt("SS.``", 1);
+        System.out.println(i);
+
+
+        i = NumberUtils.toInt("1111", 1);
+        System.out.println(i);
+    }
+
+
+    @Test
+    public void test14(){
+        String source = "1111";
+        String value = "11111,2222,3333";
+
+        System.out.println(in(source, value));
+        System.out.println(notIn(source, value));
+    }
+
+    @Test
+    public void test15(){
+        Object source = 1111;
+        Object value = new Double("1111");
+
+        System.out.println(equals(source, value));
+        System.out.println(notEquals(source, value));
+    }
+
+    boolean in(Object sourceObj, Object valueObj) {
+        if (sourceObj instanceof String) {
+            if (valueObj instanceof String) {
+                String[] values = ((String) valueObj).split(",");
+                if (null != values) {
+                    for (String str : values) {
+                        if (StringUtils.equals(str, (String) sourceObj)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean notIn(Object sourceObj, Object valueObj) {
+        return !in(sourceObj, valueObj);
+//        if (sourceObj instanceof String) {
+//            if (valueObj instanceof String) {
+//                String[] values = ((String) valueObj).split(",");
+//                if (null != values) {
+//                    for (String str : values) {
+//                        if (StringUtils.equals(str, (String) sourceObj)) {
+//                            return false;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return true;
+    }
+
+    boolean equals(Object sourceObj, Object valueObj) {
+        if (sourceObj instanceof String) {
+            if (valueObj instanceof String) {
+                return StringUtils.equals((String) sourceObj, (String) valueObj);
+            }
+            return false;
+        }
+        if (sourceObj instanceof Boolean) {
+            return ((Boolean) sourceObj).booleanValue() == Boolean.parseBoolean(valueObj
+                    .toString());
+        }
+        Double source = NumberUtil.getDoubleFrom(sourceObj);
+        Double value = NumberUtil.getDoubleFrom(valueObj);
+        if (Double.isNaN(source) || Double.isNaN(value)) {
+            return false;
+        }
+        return source.doubleValue() == value.doubleValue();
+    }
+
+    boolean notEquals(Object sourceObj, Object valueObj) {
+        if (sourceObj instanceof String) {
+            if (valueObj instanceof String) {
+                return !StringUtils.equals((String) sourceObj, (String) valueObj);
+            }
+            return true;
+        }
+        if (sourceObj instanceof Boolean) {
+            return ((Boolean) sourceObj).booleanValue() != Boolean.parseBoolean(valueObj
+                    .toString());
+        }
+        Double source = NumberUtil.getDoubleFrom(sourceObj);
+        Double value = NumberUtil.getDoubleFrom(valueObj);
+        if (Double.isNaN(source) || Double.isNaN(value)) {
+            return false;
+        }
+        return source.doubleValue() != value.doubleValue();
+    }
+
+    @Test
+    public void test16(){
+        char str = (char) (10 + 55);
+        System.out.println(str);
+    }
 
 }

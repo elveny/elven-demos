@@ -168,4 +168,18 @@ public class RegexTester {
         boolean rs = matcher.matches();
         System.out.println(rs);
     }
+
+    @Test
+    public void test13(){
+        // 要验证的字符串
+        String str = "DESede/ECB/NoPadding";
+        // 邮箱验证规则
+        // 编译正则表达式
+        Pattern pattern = Pattern.compile("\\w+/\\w+/\\w+");
+
+        Matcher matcher = pattern.matcher(str);
+        // 字符串是否与正则表达式相匹配
+        boolean rs = matcher.find();
+        System.out.println(rs);
+    }
 }

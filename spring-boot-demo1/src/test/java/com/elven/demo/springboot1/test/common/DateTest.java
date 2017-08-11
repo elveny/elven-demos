@@ -7,6 +7,9 @@ package com.elven.demo.springboot1.test.common;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * @author qiusheng.wu
  * @Filename DateTest.java
@@ -24,4 +27,14 @@ public class DateTest {
         System.out.println(new java.sql.Date(DateTime.now().minusDays(2).toDate().getTime()));
     }
 
+    @Test
+    public void calendarTest(){
+        Date now = new Date(System.currentTimeMillis()-13*60*60*1000);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+
+        System.out.println(calendar);
+        System.out.println(calendar.get(Calendar.HOUR_OF_DAY));
+        System.out.println(calendar.get(Calendar.HOUR));
+    }
 }

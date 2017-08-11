@@ -161,7 +161,7 @@ public class POITest {
                 i++;
             }
 
-            FileOutputStream fos = new FileOutputStream(ResourceUtils.getFile("C:\\Users\\qiusheng.wu\\Downloads\\bbbbbb.txt"));
+            FileOutputStream fos = new FileOutputStream(ResourceUtils.getFile("C:\\Users\\qiusheng.wu\\Downloads\\90_20170803220344.txt"));
             fos.write(stringBuilder.toString().getBytes());
             fos.flush();
             fos.close();

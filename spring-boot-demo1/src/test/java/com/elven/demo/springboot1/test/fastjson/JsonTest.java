@@ -180,4 +180,12 @@ public class JsonTest {
 
     }
 
+    @Test
+    public void test5(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("now", new java.util.Date());
+
+        System.out.println(JSON.toJSONString(map));
+    }
+
 }
