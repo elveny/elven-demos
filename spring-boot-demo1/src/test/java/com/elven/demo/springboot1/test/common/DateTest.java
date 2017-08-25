@@ -5,6 +5,7 @@
 package com.elven.demo.springboot1.test.common;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeFieldType;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -36,5 +37,20 @@ public class DateTest {
         System.out.println(calendar);
         System.out.println(calendar.get(Calendar.HOUR_OF_DAY));
         System.out.println(calendar.get(Calendar.HOUR));
+    }
+
+    @Test
+    public void DateTimeTest(){
+        System.out.println(new DateTime(new Date(2017, 5, 12, 10, 44, 44).getTime()).getHourOfDay());
+        System.out.println(new DateTime(new Date(2017, 5, 12, 10, 44, 44).getTime()).get(DateTimeFieldType.hourOfDay()));
+    }
+
+    @Test
+    public void test1(){
+        DateTime beginDate = new DateTime(new Date()).minusDays(2);//开始日期
+        System.out.println(beginDate);
+
+        System.out.println(new java.sql.Date(DateTime.now().minusDays(2).toDate().getTime()));
+
     }
 }

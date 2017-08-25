@@ -52,5 +52,10 @@ public class RandomTest {
 
     }
 
+    @Test
+    public void test1(){
+        System.out.println(RandomUtils.nextInt(10));
+    }
+
 
 }

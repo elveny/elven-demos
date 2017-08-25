@@ -303,4 +303,12 @@ public class CommonTest {
         System.out.println(str);
     }
 
+    @Test
+    public void test17(){
+        String batchDeductStr = "c7ad128411734978ad7e3cb19d12243a|20170818|alic|0|2088022370145622|张宝|01|320301198502169142|0.01|批扣测试|T110E5|重庆市|市辖区|0500|1f346tfd7694gdfgjoerg72384|ccs|0302|11223344000004|1|13906321789|5\n" +
+                "c3b9118ba09a4c0aa9e591992d375e60|20170818|alic|0|2088022370145622|张宝|01|320301198502169142|0.01|批扣测试|T110E5|重庆市|市辖区|0500|1f346tfd7694gdfgjoerg72384|ccs|0302|11223344000004|1|13906321789|5";
+        System.out.println(batchDeductStr.getBytes().length);
+
+    }
+
 }

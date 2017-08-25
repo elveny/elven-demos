@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,5 +74,24 @@ public class ScriptTest {
 
         GroovyObject instance = (GroovyObject)groovyClass.newInstance();//proxy
         instance.invokeMethod("test1", null);
+    }
+
+    @Test
+    public void dateTest() throws IllegalAccessException, InstantiationException {
+
+        String groovyText = "\n" +
+                "\t\t return new org.joda.time.DateTime(transDateTime.getTime()).getHourOfDay() \n" +
+                "\t";
+
+        Class<Script> classScript = (Class<Script>)new GroovyClassLoader().parseClass(groovyText);
+
+        Script script = classScript.newInstance();
+
+        Binding binding = new Binding();
+        binding.setVariable("transDateTime", new Date());
+        script.setBinding(binding);
+        Object result = script.run();
+        System.out.println(result);
+
     }
 }
