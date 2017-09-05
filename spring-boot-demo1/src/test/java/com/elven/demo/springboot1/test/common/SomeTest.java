@@ -86,4 +86,10 @@ public class SomeTest {
         }
 
     }
+
+    @Test
+    public void test(){
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(new Integer("111").toString());
+    }
 }
