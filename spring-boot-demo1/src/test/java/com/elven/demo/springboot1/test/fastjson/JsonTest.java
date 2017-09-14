@@ -188,4 +188,15 @@ public class JsonTest {
         System.out.println(JSON.toJSONString(map));
     }
 
+    @Test
+    public void test6(){
+        String jsonStr = "{\"appId\":\"wx8632a91376b81e24\",\"timeStamp\":\"1505292855977\",\"status\":\"0\",\"signType\":\"MD5\",\"package\":\"prepay_id=wx20170913165415e7285bb1010395486961\",\"callback_url\":null,\"nonceStr\":\"1505292855977\",\"paySign\":\"543B805175C81ACD3690B4AB27BAF2BB\"}";
+        JSONObject jsonObject = JSON.parseObject(jsonStr);
+        jsonObject.remove("status");
+        jsonObject.remove("callback_url");
+        jsonObject.remove("callback_url111");
+        System.out.println(jsonObject.toJSONString());
+
+    }
+
 }
