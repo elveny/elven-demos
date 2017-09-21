@@ -6,7 +6,10 @@ package com.elven.demo.springboot1.test.common;
 
 import org.junit.Test;
 
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author qiusheng.wu
@@ -37,5 +40,35 @@ public class BigDecimalTest {
     @Test
     public void test(){
         System.out.println(yuanToFen("35"));
+    }
+
+    @Test
+    public void test1() throws InvocationTargetException, IllegalAccessException {
+        BigDecimalObj bigDecimalObj = new BigDecimalObj();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("amt", "");
+        org.apache.commons.beanutils.BeanUtils.populate(bigDecimalObj, map);
+    }
+
+}
+
+class BigDecimalObj{
+    private BigDecimal amt;
+    private Integer num;
+
+    public BigDecimal getAmt() {
+        return amt;
+    }
+
+    public void setAmt(BigDecimal amt) {
+        this.amt = amt;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
     }
 }
