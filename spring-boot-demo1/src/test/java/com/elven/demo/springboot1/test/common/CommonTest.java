@@ -4,7 +4,6 @@
  */
 package com.elven.demo.springboot1.test.common;
 
-import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -14,7 +13,6 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -120,18 +118,18 @@ public class CommonTest {
     }
 
 
-    @Test
-    public void test10() throws IOException {
-        long freeSpaceKb = FileSystemUtils.freeSpaceKb();
-        System.out.println(freeSpaceKb/1024L/1024L);
-
-        freeSpaceKb = FileSystemUtils.freeSpaceKb("D:\\");
-        System.out.println(freeSpaceKb);
-
-        freeSpaceKb = FileSystemUtils.freeSpaceKb("D:\\", 10*1000);
-        System.out.println(freeSpaceKb);
-
-    }
+//    @Test
+//    public void test10() throws IOException {
+//        long freeSpaceKb = FileSystemUtils.freeSpaceKb();
+//        System.out.println(freeSpaceKb/1024L/1024L);
+//
+//        freeSpaceKb = FileSystemUtils.freeSpaceKb("D:\\");
+//        System.out.println(freeSpaceKb);
+//
+////        freeSpaceKb = FileSystemUtils.freeSpaceKb("D:\\", 10*1000);
+//        System.out.println(freeSpaceKb);
+//
+//    }
 
     @Test
     public void mapTest(){
@@ -309,6 +307,13 @@ public class CommonTest {
                 "c3b9118ba09a4c0aa9e591992d375e60|20170818|alic|0|2088022370145622|张宝|01|320301198502169142|0.01|批扣测试|T110E5|重庆市|市辖区|0500|1f346tfd7694gdfgjoerg72384|ccs|0302|11223344000004|1|13906321789|5";
         System.out.println(batchDeductStr.getBytes().length);
 
+    }
+
+    @Test
+    public void test18(){
+        String str = "123456";
+        System.out.println(str.substring(0,4));
+        System.out.println(str.substring(4));
     }
 
 }

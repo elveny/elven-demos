@@ -9,7 +9,7 @@ info:
 
 # 服务器设置（端口等）
 server:
-    port: 9999 # 0:随机端口, -1表示禁止HTTP端口
+    port: 7777 # 0:随机端口, -1表示禁止HTTP端口
     undertow:
         accesslog:
             enabled: true

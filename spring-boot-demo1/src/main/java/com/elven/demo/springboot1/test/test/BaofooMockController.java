@@ -4,7 +4,10 @@
  */
 package com.elven.demo.springboot1.test.test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,8 +24,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/spirngbootdemo1/baofooMock")
 public class BaofooMockController {
 
+    Logger logger = LoggerFactory.getLogger(BaofooMockController.class);
+
     @RequestMapping("bankRefundBatchQuery")
-    public String bankRefundBatchQuery(){
+    public String bankRefundBatchQuery(@RequestParam(value = "id") String id){
+
+        logger.info("请求开始...id:"+id);
+
+        try {
+            Thread.sleep(12000);
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage());
+        }
+
         String respXmlStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<trans_content>\n" +
                 "  <trans_head>\n" +
@@ -60,6 +74,8 @@ public class BaofooMockController {
                 "    </trans_reqData>\n" +
                 "  </trans_reqDatas>\n" +
                 "</trans_content>\n";
+
+        logger.info("结束...id:"+id);
 
         return respXmlStr;
     }

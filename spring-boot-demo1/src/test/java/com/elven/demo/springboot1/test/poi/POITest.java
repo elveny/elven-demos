@@ -110,7 +110,7 @@ public class POITest {
         String bank_info_sql = sqlStringBuilder.toString();
         logger.info("{}", bank_info_sql);
 
-        FileUtils.write(new File("E:\\code\\idea\\elven\\elven-demos\\spring-boot-demo1\\src\\test\\resources\\bank_info.sql"), bank_info_sql, "UTF-8");
+        FileUtils.writeStringToFile(new File("E:\\code\\idea\\elven\\elven-demos\\spring-boot-demo1\\src\\test\\resources\\bank_info.sql"), bank_info_sql, "UTF-8");
 
         stopWatch.stop();
 
