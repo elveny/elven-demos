@@ -186,11 +186,12 @@ public class RegexTester {
     @Test
     public void test14(){
         // 要验证的字符串
-        String str = "宝贝格子（北京）科技(有限)公司";
+        String str = "宝贝格子（北京）科技(有限)公司二";
         // 邮箱验证规则
         // 编译正则表达式
 //        Pattern pattern = Pattern.compile("^[\\w\\-\\.\\u00b7\\u2022\\u4E00-\\u9FA5]{1,64}$");
-        Pattern pattern = Pattern.compile("^[\\w\\-\\.\\u00b7\\u2022\\uff08\\uff09\\u4E00-\\u9FA5]{1,64}$");
+        // - . · • （ ） ( ) 中文（从一到龥）
+        Pattern pattern = Pattern.compile("^[\\w\\-\\.\\u00b7\\u2022\\uff08\\uff09\\u0028\\u0029\\u4E00-\\u9FA5]{1,64}$");
 
         Matcher matcher = pattern.matcher(str);
         // 字符串是否与正则表达式相匹配
