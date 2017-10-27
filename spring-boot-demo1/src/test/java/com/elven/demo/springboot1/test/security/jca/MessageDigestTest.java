@@ -53,9 +53,9 @@ public class MessageDigestTest {
 
     @Test
     public void md5Test() {
-        String message = "我有一头小毛驴我从来也不骑";
+        String message = "1330http://blog.csdn.net/jadyer1330";
         byte[] digest = messageDigest("MD5", message);
-        System.out.println(new BigInteger(1, digest).toString(16));
+        System.out.println(new BigInteger(1, digest).toString(16).toUpperCase());
         System.out.println(Base64Utils.encodeToString(digest));
     }
 
