@@ -5,4 +5,5 @@ include 'antd-dva-demo1'
 include 'spring-boot-batch1'
 include 'genEntity'
 include 'jd-deduct-sign'
+include 'yeepay-deduct'
 

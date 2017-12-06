@@ -387,7 +387,7 @@ public class CipherTest {
     }
 
     @Test
-    public static void PBETest() throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, IOException {
+    public void PBETest() throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, IOException {
 
         PBEKeySpec pbeKeySpec;
         PBEParameterSpec pbeParamSpec;
@@ -432,6 +432,6 @@ public class CipherTest {
     }
 
     public static void main(String[] args) throws NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, IOException, BadPaddingException, InvalidAlgorithmParameterException, InvalidKeySpecException {
-        PBETest();
+        new CipherTest().PBETest();
     }
 }
