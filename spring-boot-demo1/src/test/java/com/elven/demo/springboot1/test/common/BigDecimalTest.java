@@ -50,6 +50,11 @@ public class BigDecimalTest {
         org.apache.commons.beanutils.BeanUtils.populate(bigDecimalObj, map);
     }
 
+    @Test
+    public void test2(){
+        System.out.println(new BigDecimal(Double.valueOf(1)/100d));
+    }
+
 }
 
 class BigDecimalObj{
