@@ -1,7 +1,8 @@
-package com.demo.utils;
+package com.msxf.paygw.common.util;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 
 /**
@@ -15,6 +16,16 @@ public class MD5Util {
      */
     public static String md5(String data){
         return DigestUtils.md5Hex(data).toUpperCase();
+    }
+
+    /**
+     * 将明文转换成byte进行加密
+     * @param data 明文
+     * @return 密文
+     * @throws UnsupportedEncodingException
+     */
+    public static String md5Byte(String data) throws UnsupportedEncodingException {
+        return DigestUtils.md5Hex(data.getBytes("UTF-8"));
     }
 
     /**
@@ -83,5 +94,34 @@ public class MD5Util {
         } else {
             return false;
         }
+    }
+
+    /**
+     * MD5方法
+     *
+     * @param text 明文
+     * @param key 密钥
+     * @return 密文
+     * @throws Exception
+     */
+    public static String md5(String text, String key) throws Exception {
+        byte[] bytes = (text + key).getBytes();
+
+        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+        messageDigest.update(bytes);
+        bytes = messageDigest.digest();
+
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < bytes.length; i ++)
+        {
+            if((bytes[i] & 0xff) < 0x10)
+            {
+                sb.append("0");
+            }
+
+            sb.append(Long.toString(bytes[i] & 0xff, 16));
+        }
+
+        return sb.toString().toLowerCase();
     }
 }
