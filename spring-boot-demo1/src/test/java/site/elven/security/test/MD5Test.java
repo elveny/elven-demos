@@ -26,12 +26,12 @@ public class MD5Test {
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
 
-        byte[] digest = MessageDigestUtils.digest(algorithm, plain.getBytes(), salt);
+        byte[] digest = SecurityUtils.digest(algorithm, plain.getBytes(), salt);
         System.out.println(digest.length);
         System.out.println(Base64Utils.encodeToString(digest));
-        System.out.println(MessageDigestUtils.byte2Hex(digest));
+        System.out.println(SecurityUtils.byte2Hex(digest));
 
-        boolean verify = MessageDigestUtils.verify(algorithm, plain.getBytes(), digest, salt);
+        boolean verify = SecurityUtils.digestCheck(algorithm, plain.getBytes(), digest, salt);
         System.out.println(verify);
     }
 
@@ -41,12 +41,12 @@ public class MD5Test {
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
 
-        byte[] digest = MessageDigestUtils.digest(algorithm, plain.getBytes(), salt);
+        byte[] digest = SecurityUtils.digest(algorithm, plain.getBytes(), salt);
         System.out.println(digest.length);
         System.out.println(Base64Utils.encodeToString(digest));
-        System.out.println(MessageDigestUtils.byte2Hex(digest));
+        System.out.println(SecurityUtils.byte2Hex(digest));
 
-        boolean verify = MessageDigestUtils.verify(algorithm, plain.getBytes(), digest, salt);
+        boolean verify = SecurityUtils.digestCheck(algorithm, plain.getBytes(), digest, salt);
         System.out.println(verify);
     }
 
@@ -56,12 +56,12 @@ public class MD5Test {
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
 
-        byte[] digest = MessageDigestUtils.digest(algorithm, plain.getBytes(), salt);
+        byte[] digest = SecurityUtils.digest(algorithm, plain.getBytes(), salt);
         System.out.println(digest.length);
         System.out.println(Base64Utils.encodeToString(digest));
-        System.out.println(MessageDigestUtils.byte2Hex(digest));
+        System.out.println(SecurityUtils.byte2Hex(digest));
 
-        boolean verify = MessageDigestUtils.verify(algorithm, plain.getBytes(), digest, salt);
+        boolean verify = SecurityUtils.digestCheck(algorithm, plain.getBytes(), digest, salt);
         System.out.println(verify);
     }
 
@@ -71,12 +71,12 @@ public class MD5Test {
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
 
-        byte[] digest = MessageDigestUtils.digest(algorithm, plain.getBytes(), salt);
+        byte[] digest = SecurityUtils.digest(algorithm, plain.getBytes(), salt);
         System.out.println(digest.length);
         System.out.println(Base64Utils.encodeToString(digest));
-        System.out.println(MessageDigestUtils.byte2Hex(digest));
+        System.out.println(SecurityUtils.byte2Hex(digest));
 
-        boolean verify = MessageDigestUtils.verify(algorithm, plain.getBytes(), digest, salt);
+        boolean verify = SecurityUtils.digestCheck(algorithm, plain.getBytes(), digest, salt);
         System.out.println(verify);
     }
 

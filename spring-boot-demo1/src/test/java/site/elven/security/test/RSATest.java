@@ -5,7 +5,6 @@
 package site.elven.security.test;
 
 import org.junit.Test;
-import org.springframework.data.redis.util.ByteUtils;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -13,8 +12,8 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
 
 /**
  * @author qiusheng.wu
@@ -36,7 +35,7 @@ public class RSATest {
         int keySize = 1024;
 
         // 生成密钥对
-        KeyPair keyPair = genKeyPair(algorithm, keySize);
+        KeyPair keyPair = SecurityUtils.genKeyPair(algorithm, keySize);
 
         // 创建cipher
         Cipher cipher = Cipher.getInstance(algorithm);
@@ -45,68 +44,79 @@ public class RSATest {
         cipher.init(Cipher.ENCRYPT_MODE, keyPair.getPublic());
         // 注意：encryptStep不能大于keySize/8-11（最好等于keySize/8-11，可以减少加密次数，提高加密效率）。否则加密会抛异常（javax.crypto.IllegalBlockSizeException: Data must not be longer than xxx bytes //xxx为具体长度）
         int encryptStep = keySize/8-11;
-        byte[] encryptData = multiples(cipher, "我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑".getBytes(), encryptStep);
+        byte[] encryptData = SecurityUtils.segment(cipher, "我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑".getBytes(), encryptStep);
         System.out.println("密文长度："+encryptData.length);
 
         // 解密
         cipher.init(Cipher.DECRYPT_MODE, keyPair.getPrivate());
         // 注意：decryptStep必须固定为keySize/8，否则解密会抛异常（javax.crypto.BadPaddingException: Decryption error）
         int decryptStep = keySize/8;
-        byte[] clearData = multiples(cipher, encryptData, decryptStep);
+        byte[] clearData = SecurityUtils.segment(cipher, encryptData, decryptStep);
         System.out.println("明文长度："+clearData.length);
         System.out.println("明文："+new String(clearData));
 
     }
 
-    /**
-     * 生成密钥对
-     * @param algorithm 算法
-     * @param keysize 密钥长度
-     * @return 密钥对
-     * @throws NoSuchAlgorithmException
-     */
-    public KeyPair genKeyPair(String algorithm, int keysize) throws NoSuchAlgorithmException {
-        // 步骤一：创建
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(algorithm);
+    public void test2() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+        // 加密算法
+        String algorithm = "RSA";
+        // 密钥长度
+        int keySize = 1024;
 
-        // 步骤二：初始化
-        keyPairGenerator.initialize(keysize);
+        // 生成密钥对
+        KeyPair keyPair = SecurityUtils.genKeyPair(algorithm, keySize);
 
-        // 步骤三：生成KeyPair
-        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+        // 注意：encryptStep不能大于keySize/8-11（最好等于keySize/8-11，可以减少加密次数，提高加密效率）。否则加密会抛异常（javax.crypto.IllegalBlockSizeException: Data must not be longer than xxx bytes //xxx为具体长度）
+        int encryptStep = keySize/8-11;
+        byte[] encryptData = SecurityUtils.encrypt(algorithm, keyPair.getPublic(), "我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑".getBytes(), encryptStep);
+        System.out.println("密文长度："+encryptData.length);
 
-        return keyPair;
+        // 注意：decryptStep必须固定为keySize/8，否则解密会抛异常（javax.crypto.BadPaddingException: Decryption error）
+        int decryptStep = keySize/8;
+        byte[] clearData = SecurityUtils.decrypt(algorithm, keyPair.getPrivate(), encryptData, decryptStep);
+        System.out.println("明文长度："+clearData.length);
+        System.out.println("明文："+new String(clearData));
     }
 
-    /**
-     * 灵活多步加密/解密
-     * 注意：加密时，step必须小于keySize/8-11，解密时的step必须固定为keySize/8
-     * @param cipher Cipher对象
-     * @param in 输入的字节码（明文/密文）
-     * @param step 步长
-     * @return out 加密/解密后的字节码
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
-     */
-    public byte[] multiples(Cipher cipher, byte[] in, int step) throws BadPaddingException, IllegalBlockSizeException {
-        byte[] out = new byte[0];
+    @Test
+    public void test3() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+        // 加密算法
+        String algorithm = "DSA";
+        // 密钥长度
+        int keySize = 1024;
 
-        // 根据步长进行“多步”加密
-        int i = 0;
-        int length = in.length;
-        System.out.println("in.length："+length);
-        while (i < length){
-            if(length - i < step){
-                step = length - i;
-            }
+        // 生成密钥对
+        KeyPair keyPair = SecurityUtils.genKeyPair(algorithm, keySize);
 
-            // 第N步加密
-            byte[] temp = cipher.doFinal(in, i, step);
-            out = ByteUtils.concat(out, temp);
-            i += step;
-        }
+        // 注意：encryptStep不能大于keySize/8-11（最好等于keySize/8-11，可以减少加密次数，提高加密效率）。否则加密会抛异常（javax.crypto.IllegalBlockSizeException: Data must not be longer than xxx bytes //xxx为具体长度）
+        int encryptStep = keySize/8-11;
+        byte[] encryptData = SecurityUtils.encrypt(algorithm, keyPair.getPublic(), "我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑".getBytes(), encryptStep);
+        System.out.println("密文长度："+encryptData.length);
 
-        return out;
+        // 注意：decryptStep必须固定为keySize/8，否则解密会抛异常（javax.crypto.BadPaddingException: Decryption error）
+        int decryptStep = keySize/8;
+        byte[] clearData = SecurityUtils.decrypt(algorithm, keyPair.getPrivate(), encryptData, decryptStep);
+        System.out.println("明文长度："+clearData.length);
+        System.out.println("明文："+new String(clearData));
     }
+
+    @Test
+    public void test4() throws NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+        // 加密算法
+        String algorithm = "RSA";
+        String signAlgorithm = "SHA512WithRSA";
+        // 密钥长度
+        int keySize = 1024;
+
+        // 生成密钥对
+        KeyPair keyPair = SecurityUtils.genKeyPair(algorithm, keySize);
+
+        byte[] sign = SecurityUtils.sign(signAlgorithm, keyPair.getPrivate(), "我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑".getBytes());
+
+        boolean result = SecurityUtils.verify(signAlgorithm, keyPair.getPublic(), "我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑".getBytes(), sign);
+
+        System.out.println(result);
+    }
+
 
 }
