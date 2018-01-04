@@ -10,6 +10,7 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.security.*;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.util.Enumeration;
 
@@ -74,6 +75,9 @@ public class KeyStoreTest {
         // 步骤四：获取私钥
         PrivateKey privateKey = (PrivateKey) keyStore.getKey("test1", "test1keypass1223334444".toCharArray());
 
+        System.out.println("getType："+keyStore.getType());
+        System.out.println("getProvider："+keyStore.getProvider());
+
         System.out.println("getAlgorithm："+privateKey.getAlgorithm());
         System.out.println("getEncoded："+Base64Utils.encodeToString(privateKey.getEncoded()));
         System.out.println("getFormat："+privateKey.getFormat());
@@ -103,6 +107,58 @@ public class KeyStoreTest {
         System.out.println("getEncoded："+Base64Utils.encodeToString(privateKey.getEncoded()));
         System.out.println("getFormat："+privateKey.getFormat());
         System.out.println("isDestroyed："+privateKey.isDestroyed());
+    }
+
+    @Test
+    public void getCertificateTest() throws IOException, KeyStoreException, CertificateException, NoSuchAlgorithmException {
+        // 步骤一：创建
+        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+        // 步骤二：准备密钥库文件
+        String keystorePath = "classpath:test_demos.keystore";
+        File keystoreFile = ResourceUtils.getFile(keystorePath);
+
+        InputStream in = new FileInputStream(keystoreFile);
+
+        // 步骤三：加载密钥库
+        keyStore.load(in, "storepass1223334444".toCharArray());
+
+        // 步骤四：获取证书
+        Certificate certificate = keyStore.getCertificate("test1");
+
+        PublicKey publicKey = certificate.getPublicKey();
+
+        System.out.println("certificate.getEncoded()："+Base64Utils.encodeToString(certificate.getEncoded()));
+        System.out.println("getAlgorithm："+publicKey.getAlgorithm());
+        System.out.println("getFormat："+publicKey.getFormat());
+        System.out.println("getEncoded："+Base64Utils.encodeToString(publicKey.getEncoded()));
+    }
+
+    @Test
+    public void getCertificateChainTest() throws KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException {
+        // 步骤一：创建
+        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+        // 步骤二：准备密钥库文件
+        String keystorePath = "classpath:test_demos.keystore";
+        File keystoreFile = ResourceUtils.getFile(keystorePath);
+
+        InputStream in = new FileInputStream(keystoreFile);
+
+        // 步骤三：加载密钥库
+        keyStore.load(in, "storepass1223334444".toCharArray());
+
+        // 步骤四：获取证书
+        Certificate[] certificates = keyStore.getCertificateChain("test1");
+        System.out.println("getCertificateChain...");
+        for (Certificate c : certificates){
+            PublicKey publicKey = c.getPublicKey();
+
+            System.out.println("certificate.getEncoded()："+Base64Utils.encodeToString(c.getEncoded()));
+            System.out.println("getAlgorithm："+publicKey.getAlgorithm());
+            System.out.println("getFormat："+publicKey.getFormat());
+            System.out.println("getEncoded："+Base64Utils.encodeToString(publicKey.getEncoded()));
+        }
     }
 
     @Test
