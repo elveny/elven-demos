@@ -26,7 +26,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class AESTest {
     @Test
-    public void test1() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+    public void encryptTest1() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
         // 加密算法
         String algorithm = "AES";
         // 密钥长度只能是128、192或256

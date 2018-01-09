@@ -22,7 +22,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Test {
     @Test
-    public void test1() throws NoSuchAlgorithmException {
+    public void digestTest1() throws NoSuchAlgorithmException {
         String algorithm = "MD5";
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
@@ -37,7 +37,7 @@ public class MD5Test {
     }
 
     @Test
-    public void test2() throws NoSuchAlgorithmException {
+    public void digestTest2() throws NoSuchAlgorithmException {
         String algorithm = "MD2";
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
@@ -52,7 +52,7 @@ public class MD5Test {
     }
 
     @Test
-    public void test3() throws NoSuchAlgorithmException {
+    public void digestTest3() throws NoSuchAlgorithmException {
         String algorithm = "MD3";
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
@@ -67,7 +67,7 @@ public class MD5Test {
     }
 
     @Test
-    public void test4() throws NoSuchAlgorithmException {
+    public void digestTest4() throws NoSuchAlgorithmException {
         String algorithm = "MD4";
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";

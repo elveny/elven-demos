@@ -29,7 +29,7 @@ import java.security.SignatureException;
 public class RSATest {
 
     @Test
-    public void test1() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    public void encryptTest1() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         // 加密算法
         String algorithm = "RSA";
         // 密钥长度
@@ -59,7 +59,7 @@ public class RSATest {
     }
 
     @Test
-    public void test2() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+    public void encryptTest2() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
         // 加密算法
         String algorithm = "RSA";
         // 密钥长度
@@ -81,7 +81,7 @@ public class RSATest {
     }
 
     @Test
-    public void test3() throws NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+    public void signTest1() throws NoSuchAlgorithmException, SignatureException, InvalidKeyException {
         // 加密算法
         String algorithm = "RSA";
         String signAlgorithm = "SHA512WithRSA";

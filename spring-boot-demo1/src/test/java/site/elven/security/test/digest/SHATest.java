@@ -23,7 +23,7 @@ import java.security.NoSuchAlgorithmException;
 public class SHATest {
 
     @Test
-    public void test1() throws NoSuchAlgorithmException {
+    public void digestTest1() throws NoSuchAlgorithmException {
         String algorithm = "SHA";
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
@@ -38,7 +38,7 @@ public class SHATest {
     }
 
     @Test
-    public void test2() throws NoSuchAlgorithmException {
+    public void digestTest2() throws NoSuchAlgorithmException {
         String algorithm = "SHA-1";
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
@@ -53,7 +53,7 @@ public class SHATest {
     }
 
     @Test
-    public void test3() throws NoSuchAlgorithmException {
+    public void digestTest3() throws NoSuchAlgorithmException {
         String algorithm = "SHA-224";
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
@@ -68,7 +68,7 @@ public class SHATest {
     }
 
     @Test
-    public void test4() throws NoSuchAlgorithmException {
+    public void digestTest4() throws NoSuchAlgorithmException {
         String algorithm = "SHA-256";
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
@@ -83,7 +83,7 @@ public class SHATest {
     }
 
     @Test
-    public void test5() throws NoSuchAlgorithmException {
+    public void digestTest5() throws NoSuchAlgorithmException {
         String algorithm = "SHA-384";
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";
@@ -98,7 +98,7 @@ public class SHATest {
     }
 
     @Test
-    public void test6() throws NoSuchAlgorithmException {
+    public void digestTest6() throws NoSuchAlgorithmException {
         String algorithm = "SHA-512";
         String plain = "我有一头小毛驴我从来也不骑";
         String salt = "1223334444";

@@ -13,6 +13,7 @@ import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
 
 /**
  * @author qiusheng.wu
@@ -27,7 +28,7 @@ import java.security.NoSuchAlgorithmException;
 public class DSATest {
 
     @Test
-    public void test1() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+    public void encryptTest1() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
         // 加密算法
         String algorithm = "DSA";
         // 密钥长度
@@ -46,5 +47,23 @@ public class DSATest {
         byte[] clearData = SecurityUtils.decrypt(algorithm, keyPair.getPrivate(), encryptData, decryptStep);
         System.out.println("明文长度："+clearData.length);
         System.out.println("明文："+new String(clearData));
+    }
+
+    @Test
+    public void signTest1() throws NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+        // 加密算法
+        String algorithm = "DSA";
+        String signAlgorithm = "SHA512WithDSA";
+        // 密钥长度
+        int keySize = 1024;
+
+        // 生成密钥对
+        KeyPair keyPair = SecurityUtils.genKeyPair(algorithm, keySize);
+
+        byte[] sign = SecurityUtils.sign(signAlgorithm, keyPair.getPrivate(), "我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑".getBytes());
+
+        boolean result = SecurityUtils.verify(signAlgorithm, keyPair.getPublic(), "我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑我有一头小毛驴我从来也不骑".getBytes(), sign);
+
+        System.out.println(result);
     }
 }
