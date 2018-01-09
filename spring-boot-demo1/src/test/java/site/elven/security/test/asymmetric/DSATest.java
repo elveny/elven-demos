@@ -53,7 +53,7 @@ public class DSATest {
     public void signTest1() throws NoSuchAlgorithmException, SignatureException, InvalidKeyException {
         // 加密算法
         String algorithm = "DSA";
-        String signAlgorithm = "SHA512WithDSA";
+        String signAlgorithm = "DSA";
         // 密钥长度
         int keySize = 1024;
 
