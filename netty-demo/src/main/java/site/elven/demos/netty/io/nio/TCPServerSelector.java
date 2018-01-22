@@ -19,7 +19,7 @@ public class TCPServerSelector {
 
     public static void main(String[] args) throws IOException {
         if (args.length < 1){
-            args = new String[]{"8888", "9999"};
+            args = new String[]{"8888", "9999", "8090"};
         }
         //创建一个选择器
         Selector selector = Selector.open();

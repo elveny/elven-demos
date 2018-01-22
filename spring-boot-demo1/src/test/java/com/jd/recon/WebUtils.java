@@ -53,8 +53,10 @@ public abstract class WebUtils {
         String query = buildQuery(params, charset);
         byte[] content = {};
         if (query != null) {
+            System.out.println(query);
             content = query.getBytes(charset);
         }
+
         doPost(url, content, connectTimeout, readTimeout,filename);
     }
 
@@ -74,6 +76,7 @@ public abstract class WebUtils {
         try {
         	URL url = new URL(urlstr);
         	conn = (HttpURLConnection)url.openConnection();
+//            System.out.println("ssss:"+conn.getHeaderFields());
         	conn.setRequestMethod(METHOD_POST);
         	conn.setConnectTimeout(connectTimeout);
         	conn.setReadTimeout(readTimeout);
