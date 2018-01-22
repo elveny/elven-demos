@@ -7,4 +7,5 @@ include 'genEntity'
 include 'jd-deduct-sign'
 include 'yeepay-deduct'
 include 'netty-demo'
+include 'httpClinetDemo'
 
