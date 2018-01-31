@@ -138,7 +138,7 @@ public class LuceneTest {
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-        list = query(analyzer, directory, "subBankName", "工商银行西安长缨路支行");
+        list = query(analyzer, directory, "subBankName", "兴业银行北京魏公村支行");
 
         if(list.size() > 0){
             createIndex(analyzer, directory, list);

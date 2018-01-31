@@ -42,4 +42,14 @@ public class HttpClientMain {
          */
         new HttpClientTool().post("http://localhost:8092/outter/abc/batchDeductAsyNotify", params);
     }
+
+    public void post1() throws IOException {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("orderNo", "0000000000003008");
+        params.put("replyFileName", "0000000000003008.rpy");
+        /**
+         * 生成地址为：https://paygw.msxf.com/outter/abc/batchDeductAsyNotify
+         */
+        new HttpClientTool().post("http://localhost:8092/outter/abc/batchDeductAsyNotify", params);
+    }
 }

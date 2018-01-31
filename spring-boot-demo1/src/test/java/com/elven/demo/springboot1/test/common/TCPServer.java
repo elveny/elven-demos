@@ -1,4 +1,4 @@
-package site.elven.demos.netty.io;
+package com.elven.demo.springboot1.test.common;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -7,14 +7,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
-public class GreetingServer extends Thread{
+public class TCPServer extends Thread{
 
     private ServerSocket serverSocket;
 
-    public GreetingServer(int port) throws IOException
+    public TCPServer(int port) throws IOException
     {
         serverSocket = new ServerSocket(port);
-        serverSocket.setSoTimeout(1000*1000);
+        serverSocket.setSoTimeout(100000);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class GreetingServer extends Thread{
         int port = 8090;
         try
         {
-            Thread t = new GreetingServer(port);
+            Thread t = new TCPServer(port);
             t.run();
         }catch(IOException e)
         {
