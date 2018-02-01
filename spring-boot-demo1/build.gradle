@@ -96,6 +96,10 @@ dependencies {
 
     compile files('libs/pay-gate-signature-1.0.4.jar')
 
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    compile group: 'com.google.guava', name: 'guava', version: '23.6-jre'
+
+
 
 
 
