@@ -33,7 +33,8 @@ public class ClientSample {
 
     public static void main(String[] args) {
 
-        String hostname = "127.0.0.1";
+//        String hostname = "127.0.0.1";
+        String hostname = "192.168.56.1";
         int port = 11111;
         String destination = "example";
         String username = "";
