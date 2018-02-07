@@ -2,10 +2,10 @@
  * msxf.com Inc.
  * Copyright (c) 2018-2026 All Rights Reserved.
  */
-package site.elven.security.test.asymmetric;
+package site.elven.test.security.asymmetric;
 
 import org.junit.Test;
-import site.elven.security.test.common.utils.SecurityUtils;
+import site.elven.test.security.common.utils.SecurityUtils;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;

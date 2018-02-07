@@ -2,7 +2,7 @@
  * msxf.com Inc.
  * Copyright (c) 2017-2026 All Rights Reserved.
  */
-package site.elven.security.test.common.utils;
+package site.elven.test.security.common.utils;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.redis.util.ByteUtils;

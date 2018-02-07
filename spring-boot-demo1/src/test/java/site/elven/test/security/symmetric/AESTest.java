@@ -2,10 +2,10 @@
  * msxf.com Inc.
  * Copyright (c) 2018-2026 All Rights Reserved.
  */
-package site.elven.security.test.symmetric;
+package site.elven.test.security.symmetric;
 
 import org.junit.Test;
-import site.elven.security.test.common.utils.SecurityUtils;
+import site.elven.test.security.common.utils.SecurityUtils;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -24,13 +24,13 @@ import java.security.NoSuchAlgorithmException;
  * <li>Version: 1.0</li>
  * <li>Content: create</li>
  */
-public class DESedeTest {
+public class AESTest {
     @Test
     public void encryptTest1() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
         // 加密算法
-        String algorithm = "DESede";
-        // 密钥长度只能是112或168
-        int keySize = 112;
+        String algorithm = "AES";
+        // 密钥长度只能是128、192或256
+        int keySize = 128;
 
         Key key = SecurityUtils.genKey(algorithm, keySize);
 
@@ -41,5 +41,4 @@ public class DESedeTest {
         System.out.println(new String(decryptData));
 
     }
-
 }

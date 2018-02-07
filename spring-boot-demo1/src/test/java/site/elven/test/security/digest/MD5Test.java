@@ -2,11 +2,11 @@
  * msxf.com Inc.
  * Copyright (c) 2017-2026 All Rights Reserved.
  */
-package site.elven.security.test.digest;
+package site.elven.test.security.digest;
 
 import org.junit.Test;
 import org.springframework.util.Base64Utils;
-import site.elven.security.test.common.utils.SecurityUtils;
+import site.elven.test.security.common.utils.SecurityUtils;
 
 import java.security.NoSuchAlgorithmException;
 
