@@ -21,8 +21,10 @@ import java.util.Map;
 public class HttpClientMain {
 
     public static void main(String[] args) throws IOException {
-        new HttpClientMain().get();
-        new HttpClientMain().post();
+//        new HttpClientMain().get();
+//        new HttpClientMain().post();
+
+        new HttpClientMain().httpsGet();
 
     }
 
@@ -31,6 +33,14 @@ public class HttpClientMain {
          * 生成地址为：https://paygw.msxf.com/outter/abc/batchDeductAsyNotify
          */
         new HttpClientTool().get("http://localhost:8092/outter/abc/batchDeductAsyNotify?orderNo=0000000000003008&replyFileName=0000000000003008.rpy");
+    }
+
+    public void httpsGet() throws IOException {
+        /**
+         * 生成地址为：https://paygw.msxf.com/outter/abc/batchDeductAsyNotify
+         */
+//        new HttpClientTool().get("https://www.baidu.com/s?wd=elb&rsv_spt=1&rsv_iqid=0x85d5027f00008a8f&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&rqlang=&tn=baiduhome_pg&ch=&rsv_enter=0");
+        new HttpClientTool().get("https://www.baidu.com/s?wd=elb");
     }
 
     public void post() throws IOException {
