@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author qiusheng.wu
@@ -48,6 +49,22 @@ public class LocalDateTester {
         // 解析字符串
         LocalTime date5 = LocalTime.parse("20:15:30");
         System.out.println("date5: " + date5);
+
+        LocalTime date6 = LocalTime.parse("000000", DateTimeFormatter.ofPattern("HHmmss"));
+        System.out.println("date6: " + date6);
+
+        LocalTime date7 = LocalTime.parse("235959", DateTimeFormatter.ofPattern("HHmmss"));
+        System.out.println("date7: " + date7);
+        System.out.println(date6.compareTo(date7));
+
+
+        LocalTime date8 = LocalTime.parse("090000", DateTimeFormatter.ofPattern("HHmmss"));
+        System.out.println("date8: " + date8);
+
+        LocalTime date9 = LocalTime.parse("160600", DateTimeFormatter.ofPattern("HHmmss"));
+        System.out.println("date9: " + date9);
+        System.out.println(LocalTime.now().withSecond(0).withNano(0));
+        System.out.println(LocalTime.now().withSecond(0).withNano(0).compareTo(date9));
     }
 
 }

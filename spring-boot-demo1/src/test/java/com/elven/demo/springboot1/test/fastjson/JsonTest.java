@@ -199,4 +199,14 @@ public class JsonTest {
 
     }
 
+    @Test
+    public void test7(){
+        String properties = "{\"tcpWriteType\":0,\"tcpHeadLen\":0,\"tcpPadding\":0,\"tcpPadChar\":\" \",\"tcpRecvBodyLen\":\"252\",\"limitType\":\"complex\",\"limits\":[{\"id\":\"0\", \"type\":\"conc\", \"startTime\":\"000000\", endTime:\"080000\", \"num\":15}]}";
+
+        JSONObject jsonObject = JSON.parseObject(properties);
+        System.out.println(jsonObject.get("limitType"));
+
+        System.out.println(jsonObject.get("limits"));
+    }
+
 }
