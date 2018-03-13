@@ -2,7 +2,7 @@
  * msxf.com Inc.
  * Copyright (c) 2018-2026 All Rights Reserved.
  */
-package site.elven.demos.netty.example.time;
+package site.elven.demos.netty.example.time1;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -37,7 +37,7 @@ public class TimeClient {
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
-                    ch.pipeline().addLast(new TimeDecoder1(), new TimeClientHandler1());
+                    ch.pipeline().addLast(new TimeDecoder(), new TimeClientHandler());
                 }
             });
 
