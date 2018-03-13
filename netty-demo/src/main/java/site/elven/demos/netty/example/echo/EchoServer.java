@@ -1,8 +1,8 @@
 /**
  * msxf.com Inc.
- * Copyright (c) 2017-2026 All Rights Reserved.
+ * Copyright (c) 2018-2026 All Rights Reserved.
  */
-package site.elven.demos.netty;
+package site.elven.demos.netty.example.echo;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -14,21 +14,20 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * Discards any incoming data.
  * @author qiusheng.wu
- * @Filename DiscardServer.java
+ * @Filename EchoServer.java
  * @description
  * @Version 1.0
  * @History <li>Author: qiusheng.wu</li>
- * <li>Date: 2017/12/6 17:25</li>
+ * <li>Date: 2018/3/6 22:53</li>
  * <li>Version: 1.0</li>
  * <li>Content: create</li>
  */
-public class DiscardServer {
+public class EchoServer {
 
     private int port;
 
-    public DiscardServer(int port) {
+    public EchoServer(int port) {
         this.port = port;
     }
 
@@ -42,7 +41,7 @@ public class DiscardServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new DiscardServerHandler());
+                            ch.pipeline().addLast(new EchoServerHandler());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
@@ -68,6 +67,6 @@ public class DiscardServer {
         } else {
             port = 8080;
         }
-        new DiscardServer(port).run();
+        new EchoServer(port).run();
     }
 }

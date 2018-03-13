@@ -2,8 +2,7 @@
  * msxf.com Inc.
  * Copyright (c) 2017-2026 All Rights Reserved.
  */
-package site.elven.demos.netty;
-
+package site.elven.demos.netty.example.discard;
 
 
 import io.netty.buffer.ByteBuf;
@@ -26,7 +25,21 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter { // (1)
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) { // (2)
         // Discard the received data silently.
-        ((ByteBuf) msg).release(); // (3)
+//        ((ByteBuf) msg).release(); // (3)
+
+//        ByteBuf in = (ByteBuf) msg;
+//        try {
+//            while (in.isReadable()) { // (1)
+//                System.out.print((char) in.readByte());
+//                System.out.flush();
+//            }
+//        } finally {
+//            ReferenceCountUtil.release(msg); // (2)
+//        }
+
+        ByteBuf in = (ByteBuf) msg;
+        System.out.println(in.toString(io.netty.util.CharsetUtil.US_ASCII));
+        in.release();
     }
 
     @Override
