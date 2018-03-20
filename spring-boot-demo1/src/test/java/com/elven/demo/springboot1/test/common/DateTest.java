@@ -53,4 +53,9 @@ public class DateTest {
         System.out.println(new java.sql.Date(DateTime.now().minusDays(2).toDate().getTime()));
 
     }
+
+    @Test
+    public void test2(){
+        System.out.println(new Date(253402300799000L));
+    }
 }
