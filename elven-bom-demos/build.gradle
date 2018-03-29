@@ -1,0 +1,33 @@
+group 'elven.demos'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE"
+    }
+}
+
+apply plugin: "io.spring.dependency-management"
+
+dependencyManagement {
+    imports {
+        mavenBom 'site.elven:elven-boot-parent:1.0.0.RELEASE'
+    }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

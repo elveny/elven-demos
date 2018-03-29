@@ -9,4 +9,5 @@ include 'yeepay-deduct'
 include 'netty-demo'
 include 'httpClinetDemo'
 include 'canalClientDemo'
+include 'elven-bom-demos'
 
