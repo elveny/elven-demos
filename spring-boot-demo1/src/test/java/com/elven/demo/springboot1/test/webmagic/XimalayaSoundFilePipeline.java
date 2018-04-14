@@ -70,7 +70,7 @@ public class XimalayaSoundFilePipeline implements Pipeline {
                 byte[] bytes = new HttpClientTool().getBytes(play_path);
 
                 // 保存文件
-                FileUtils.writeByteArrayToFile(new File(filePath+File.separator+nickname+File.separator+album_title+File.separator+title+"."+suffix), bytes);
+                FileUtils.writeByteArrayToFile(new File(filePath+File.separator+nickname.replaceAll("[\\\\/:*?\"<>|]", "-")+File.separator+album_title.replaceAll("[\\\\/:*?\"<>|]", "-")+File.separator+title.replaceAll("[\\\\/:*?\"<>|]", "-")+"."+suffix), bytes);
             }
         } catch (IOException e) {
             logger.error("下载音频文件异常：{}", e.getMessage(), e);
