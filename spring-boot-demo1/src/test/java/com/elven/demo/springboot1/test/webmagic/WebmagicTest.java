@@ -4,12 +4,17 @@
  */
 package com.elven.demo.springboot1.test.webmagic;
 
+import com.elven.demo.springboot1.common.util.HttpClientTool;
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 import us.codecraft.webmagic.processor.example.BaiduBaikePageProcessor;
 import us.codecraft.webmagic.processor.example.GithubRepoPageProcessor;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author qiusheng.wu
@@ -56,5 +61,13 @@ public class WebmagicTest {
         ResultItems result = spider.get("http://baike.baidu.com/item/%E8%B1%B9%E7%BA%B9%E9%B2%A8");
         String name = result.get("name");
         System.out.println(name);
+    }
+
+
+    @Test
+    public void test4() throws IOException {
+        byte[] bytes = new HttpClientTool().getBytes("http://audio.xmcdn.com/group19/M08/E2/F6/wKgJK1fOO8bR5RS5ABRKJftFjRQ867.m4a");
+
+        FileUtils.writeByteArrayToFile(new File("E:\\temp\\wKgJK1fOO8bR5RS5ABRKJftFjRQ867.m4a"), bytes);
     }
 }

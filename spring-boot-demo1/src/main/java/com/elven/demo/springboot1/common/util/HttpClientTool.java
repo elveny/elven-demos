@@ -158,6 +158,50 @@ public class HttpClientTool {
 	public String get(String url) throws ClientProtocolException, IOException{
 		return get(url, false);
 	}
+
+	public byte[] getBytes(String url) throws IOException {
+		logger.info("::HttpClientTool::url::::::"+url);
+
+		/**
+		 * httpclient配置相关
+		 */
+		HttpClientBuilder httpClientBuilder = HttpClients.custom();
+		/**
+		 * 设置超时时间
+		 */
+		httpClientBuilder.setConnectionTimeToLive(60*1000, TimeUnit.MICROSECONDS );
+
+		/**
+		 * 定义httpclient
+		 */
+		CloseableHttpClient httpclient = httpClientBuilder.build();
+
+		try{
+			/**
+			 * 发起http请求
+			 */
+			HttpGet httpGet = new HttpGet(url);
+			CloseableHttpResponse response = httpclient.execute(httpGet);
+
+			try{
+				int statusCode = response.getStatusLine().getStatusCode();
+
+				logger.info("::HttpClientTool::statusCode::::::"+statusCode);
+
+				if(HttpStatus.SC_OK == statusCode){
+					return EntityUtils.toByteArray(response.getEntity());
+				}
+			}
+			finally{
+				response.close();
+			}
+		}
+		finally{
+			httpclient.close();
+		}
+
+		return null;
+	}
 	
 	/**
 	 * 适配两种post提交

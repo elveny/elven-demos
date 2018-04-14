@@ -74,9 +74,9 @@ dependencies {
 //    compile group: 'org.apache.lucene', name: 'lucene-backward-codecs', version: '5.5.3'
 
     // https://mvnrepository.com/artifact/us.codecraft/webmagic-core
-    compile group: 'us.codecraft', name: 'webmagic-core', version: '0.6.0'
+    compile group: 'us.codecraft', name: 'webmagic-core', version: '0.7.3'
     // https://mvnrepository.com/artifact/us.codecraft/webmagic-extension
-    compile group: 'us.codecraft', name: 'webmagic-extension', version: '0.6.0'
+    compile group: 'us.codecraft', name: 'webmagic-extension', version: '0.7.3'
 
     // https://mvnrepository.com/artifact/joda-time/joda-time
     compile group: 'joda-time', name: 'joda-time', version: '2.9.7'
@@ -98,9 +98,6 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.google.guava/guava
     compile group: 'com.google.guava', name: 'guava', version: '23.6-jre'
-
-
-
 
 
 
