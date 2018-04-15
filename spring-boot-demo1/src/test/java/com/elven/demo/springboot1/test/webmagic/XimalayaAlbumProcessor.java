@@ -160,11 +160,12 @@ public class XimalayaAlbumProcessor implements PageProcessor {
 
     public static void main(String[] args) throws IOException {
         XimalayaAlbumProcessor processor = new XimalayaAlbumProcessor();
-        processor.setZhuboId("62811993");
+        String zhuboId = "62811993";
+        processor.setZhuboId(zhuboId);
         Spider.create(processor)
-                .addPipeline(new XimalayaSoundFilePipeline("E:\\temp\\20180413"))
+                .addPipeline(new XimalayaSoundFilePipeline("E:\\temp\\20180415"))
+//                .addUrl("http://www.ximalaya.com/"+zhuboId+"/album/")
                 .addUrl("http://www.ximalaya.com/62811993/album/")
-//                .addUrl("http://www.ximalaya.com/62811993/album/9133370/")
 //                .addUrl("http://www.ximalaya.com/tracks/65869311.json")
                 .thread(5)
                 .run();

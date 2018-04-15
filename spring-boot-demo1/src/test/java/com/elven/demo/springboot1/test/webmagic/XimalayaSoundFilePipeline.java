@@ -10,6 +10,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -52,6 +54,8 @@ public class XimalayaSoundFilePipeline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
 
+        String soundFilePath = null;
+        byte[] bytes = null;
         try {
             Map<String, Object> map = resultItems.get("soundObjMap");
             if(!CollectionUtils.isEmpty(map)){
@@ -67,13 +71,29 @@ public class XimalayaSoundFilePipeline implements Pipeline {
                 String suffix = FilenameUtils.getExtension(play_path);
 
                 // 下载音频文件
-                byte[] bytes = new HttpClientTool().getBytes(play_path);
+                bytes = new HttpClientTool().getBytes(play_path);
 
-                // 保存文件
-                FileUtils.writeByteArrayToFile(new File(filePath+File.separator+nickname.replaceAll("[\\\\/:*?\"<>|]", "-")+File.separator+album_title.replaceAll("[\\\\/:*?\"<>|]", "-")+File.separator+title.replaceAll("[\\\\/:*?\"<>|]", "-")+"."+suffix), bytes);
+                String soundTitle = album_id+"_"+id+"_"+title.replaceAll("[\\\\/:*?\"<>|]", "-");
+
+                soundFilePath = filePath+File.separator+nickname.replaceAll("[\\\\/:*?\"<>|]", "-")+File.separator+album_title.replaceAll("[\\\\/:*?\"<>|]", "-")+File.separator+soundTitle+"."+suffix;
+
+                if(!StringUtils.isEmpty(soundFilePath) && !ObjectUtils.isEmpty(bytes)){
+                    // 保存文件
+                    FileUtils.writeByteArrayToFile(new File(soundFilePath), bytes);
+                }
+
             }
         } catch (IOException e) {
-            logger.error("下载音频文件异常：{}", e.getMessage(), e);
+            logger.error("下载音频文件{}异常：{}", soundFilePath, e.getMessage(), e);
+
+            if(!StringUtils.isEmpty(soundFilePath) && !ObjectUtils.isEmpty(bytes)){
+                // 保存文件
+                try {
+                    FileUtils.writeByteArrayToFile(new File(soundFilePath), bytes);
+                } catch (IOException e1) {
+                    logger.error("再次下载音频文件{}异常：{}", soundFilePath, e.getMessage(), e);
+                }
+            }
         }
     }
 }
