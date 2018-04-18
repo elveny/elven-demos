@@ -4,7 +4,6 @@
  */
 package com.elven.demo.springboot1.test.webmagic;
 
-import com.elven.demo.springboot1.common.util.HttpClientTool;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -36,6 +36,8 @@ public class XimalayaSoundFilePipeline implements Pipeline {
 
     private String filePath;
 
+    private RestTemplate restTemplate;
+
     public String getFilePath() {
         return filePath;
     }
@@ -44,11 +46,24 @@ public class XimalayaSoundFilePipeline implements Pipeline {
         this.filePath = filePath;
     }
 
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
+
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
     public XimalayaSoundFilePipeline() {
     }
 
     public XimalayaSoundFilePipeline(String filePath) {
         this.filePath = filePath;
+    }
+
+    public XimalayaSoundFilePipeline(String filePath, RestTemplate restTemplate) {
+        this.filePath = filePath;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -71,7 +86,10 @@ public class XimalayaSoundFilePipeline implements Pipeline {
                 String suffix = FilenameUtils.getExtension(play_path);
 
                 // 下载音频文件
-                bytes = new HttpClientTool().getBytes(play_path);
+                if(ObjectUtils.isEmpty(restTemplate)){
+                    restTemplate = new RestTemplate();
+                }
+                bytes = restTemplate.getForObject(play_path, byte[].class);
 
                 String soundTitle = album_id+"_"+id+"_"+title.replaceAll("[\\\\/:*?\"<>|]", "-");
 

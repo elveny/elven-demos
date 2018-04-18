@@ -1,9 +1,12 @@
 package com.elven.demo.springboot1.test.rest;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,5 +66,15 @@ public class RestTest {
 
         String rsp = restTemplate.getForObject("http://localhost:8080/test/helloUser1?name=xxx", String.class);
         System.out.println(rsp);
+    }
+
+
+    @Test
+    public void getByte() throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+
+        byte[] response = restTemplate.getForObject("http://audio.xmcdn.com/group37/M09/E4/D6/wKgJoVpQlJKC7kU0AAydYOC2Fmo476.m4a", byte[].class);
+
+        FileUtils.writeByteArrayToFile(new File("D:\\temp\\20180418\\wKgJoVpQlJKC7kU0AAydYOC2Fmo476.m4a"), response);
     }
 }

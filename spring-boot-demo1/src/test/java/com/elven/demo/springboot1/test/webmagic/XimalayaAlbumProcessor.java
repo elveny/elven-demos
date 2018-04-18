@@ -7,6 +7,7 @@ package com.elven.demo.springboot1.test.webmagic;
 import com.alibaba.fastjson.JSON;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -162,8 +163,9 @@ public class XimalayaAlbumProcessor implements PageProcessor {
         XimalayaAlbumProcessor processor = new XimalayaAlbumProcessor();
         String zhuboId = "62811993";
         processor.setZhuboId(zhuboId);
+        RestTemplate restTemplate = new RestTemplate();
         Spider.create(processor)
-                .addPipeline(new XimalayaSoundFilePipeline("E:\\temp\\20180415"))
+                .addPipeline(new XimalayaSoundFilePipeline("E:\\temp\\20180415", restTemplate))
 //                .addUrl("http://www.ximalaya.com/"+zhuboId+"/album/")
                 .addUrl("http://www.ximalaya.com/62811993/album/")
 //                .addUrl("http://www.ximalaya.com/tracks/65869311.json")
