@@ -13,12 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.ResourceUtils;
 import org.springframework.util.StopWatch;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author qiusheng.wu
@@ -36,7 +32,7 @@ public class POITest {
 
     @Test
     public void test1() throws IOException {
-        Map<String, List<String[]>> data = POIUtil.parse(ResourceUtils.getFile("C:\\Users\\qiusheng.wu\\Downloads\\20170118.xls"));
+        Map<String, List<String[]>> data = POIUtil.read(ResourceUtils.getFile("classpath:20180418.xlsx"));
 
         for(String key : data.keySet()){
             System.out.println("key:::::"+key);
@@ -54,13 +50,64 @@ public class POITest {
     }
 
     @Test
+    public void test2() throws IOException {
+        Map<String, List<String[]>> data = POIUtil.read(new FileInputStream(ResourceUtils.getFile("classpath:20180418.csv")), "xls");
+
+        for(String key : data.keySet()){
+            System.out.println("key:::::"+key);
+
+            List<String[]> list = data.get(key);
+            for(String[] strs : list){
+                for(String str : strs){
+                    System.out.print(str+" ");
+                }
+                System.out.println();
+            }
+
+            System.out.println(":::::::::::::::::::::::end::::::::::::::::"+key);
+        }
+    }
+
+    @Test
+    public void write1() throws IOException {
+
+        List<Object[]> rowList = new ArrayList<>();
+        Object[] collData = new String[]{"1", "2", "3"};
+        rowList.add(collData);
+
+        collData = new String[]{"4", "5", "6"};
+        rowList.add(collData);
+
+        collData = new String[]{"7", "8", "9"};
+        rowList.add(collData);
+
+        collData = new Integer[]{0, 1};
+        rowList.add(collData);
+
+        collData = new POIUtil[]{new POIUtil()};
+        rowList.add(collData);
+
+        Map<String, List<Object[]>> data = new HashMap<>();
+        data.put("sheeeeeeeet1", rowList);
+
+        POIUtil.write(data, "xls", new File("D:\\temp\\20180418\\test1.xls"));
+        POIUtil.write(data, "xlsx", new File("D:\\temp\\20180418\\test1.xlsx"));
+
+        OutputStream os = new ByteArrayOutputStream();
+        POIUtil.write(data, "xls", os);
+        byte[] bytes = new byte[1024];
+        os.write(bytes);
+        System.out.println(Base64.getEncoder().encodeToString(bytes));
+    }
+
+    @Test
     public void updateBankInfoFromExcel() throws IOException {
 
         String excelFile = "classpath:bank_info20170118.xlsx";
 
         StopWatch stopWatch = new StopWatch("BankInfo");
         stopWatch.start("加载excel数据源");
-        Map<String, List<String[]>> data = POIUtil.parse(ResourceUtils.getFile(excelFile));
+        Map<String, List<String[]>> data = POIUtil.read(ResourceUtils.getFile(excelFile));
         stopWatch.stop();
 
         StringBuilder sqlStringBuilder = new StringBuilder("");
@@ -121,7 +168,7 @@ public class POITest {
 
     @Test
     public void batchDeductTest() throws IOException {
-        Map<String, List<String[]>> data = POIUtil.parse(ResourceUtils.getFile("C:\\Users\\qiusheng.wu\\Downloads\\bbbbbb.xlsx"));
+        Map<String, List<String[]>> data = POIUtil.read(ResourceUtils.getFile("C:\\Users\\qiusheng.wu\\Downloads\\bbbbbb.xlsx"));
 
         for(String key : data.keySet()){
             System.out.println("key:::::"+key);

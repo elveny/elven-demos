@@ -45,7 +45,7 @@ public class LuceneUtilTest {
     public void createIndex() throws Exception {
 
         long t1 = System.nanoTime();
-        Map<String, List<String[]>> data = POIUtil.parse(ResourceUtils.getFile("classpath:20170118.xlsx"));
+        Map<String, List<String[]>> data = POIUtil.read(ResourceUtils.getFile("classpath:20170118.xlsx"));
         long t2 = System.nanoTime();
 
         System.out.println("解析excel:::spent::"+(t2-t1)/1000000000.0f+"(s)");
