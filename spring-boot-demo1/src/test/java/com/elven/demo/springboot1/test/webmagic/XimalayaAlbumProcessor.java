@@ -165,7 +165,8 @@ public class XimalayaAlbumProcessor implements PageProcessor {
         processor.setZhuboId(zhuboId);
         RestTemplate restTemplate = new RestTemplate();
         Spider.create(processor)
-                .addPipeline(new XimalayaSoundFilePipeline("E:\\temp\\20180415", restTemplate))
+                .addPipeline(new XimalayaSoundFileSavePipeline("E:\\temp\\20180421", restTemplate))
+                .addPipeline(new XimalayaSoundFileConvertPipeline())
 //                .addUrl("http://www.ximalaya.com/"+zhuboId+"/album/")
                 .addUrl("http://www.ximalaya.com/62811993/album/")
 //                .addUrl("http://www.ximalaya.com/tracks/65869311.json")

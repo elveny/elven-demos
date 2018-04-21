@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * @author qiusheng.wu
- * @Filename XimalayaSoundFilePipeline.java
+ * @Filename XimalayaSoundFileSavePipeline.java
  * @description
  * @Version 1.0
  * @History <li>Author: qiusheng.wu</li>
@@ -30,9 +30,9 @@ import java.util.Map;
  * <li>Version: 1.0</li>
  * <li>Content: create</li>
  */
-public class XimalayaSoundFilePipeline implements Pipeline {
+public class XimalayaSoundFileSavePipeline implements Pipeline {
 
-    Logger logger = LoggerFactory.getLogger(XimalayaSoundFilePipeline.class);
+    Logger logger = LoggerFactory.getLogger(XimalayaSoundFileSavePipeline.class);
 
     private String filePath;
 
@@ -54,52 +54,54 @@ public class XimalayaSoundFilePipeline implements Pipeline {
         this.restTemplate = restTemplate;
     }
 
-    public XimalayaSoundFilePipeline() {
+    public XimalayaSoundFileSavePipeline() {
     }
 
-    public XimalayaSoundFilePipeline(String filePath) {
+    public XimalayaSoundFileSavePipeline(String filePath) {
         this.filePath = filePath;
     }
 
-    public XimalayaSoundFilePipeline(String filePath, RestTemplate restTemplate) {
+    public XimalayaSoundFileSavePipeline(String filePath, RestTemplate restTemplate) {
         this.filePath = filePath;
         this.restTemplate = restTemplate;
     }
 
     @Override
     public void process(ResultItems resultItems, Task task) {
+        Map<String, Object> map = resultItems.get("soundObjMap");
+        // map为空则不处理
+        if(CollectionUtils.isEmpty(map)){
+            return;
+        }
 
         String soundFilePath = null;
         byte[] bytes = null;
         try {
-            Map<String, Object> map = resultItems.get("soundObjMap");
-            if(!CollectionUtils.isEmpty(map)){
+            String id = String.valueOf(map.get("id"));
+            String title = String.valueOf(map.get("title"));
+            String album_id = String.valueOf(map.get("album_id"));
+            String album_title = String.valueOf(map.get("album_title"));
+            String nickname = String.valueOf(map.get("nickname"));
+            String play_path = String.valueOf(map.get("play_path"));
 
-                String id = String.valueOf(map.get("id"));
-                String title = String.valueOf(map.get("title"));
-                String album_id = String.valueOf(map.get("album_id"));
-                String album_title = String.valueOf(map.get("album_title"));
-                String nickname = String.valueOf(map.get("nickname"));
-                String play_path = String.valueOf(map.get("play_path"));
+            // 获取后缀名
+            String suffix = FilenameUtils.getExtension(play_path);
 
-                // 获取后缀名
-                String suffix = FilenameUtils.getExtension(play_path);
+            // 下载音频文件
+            if(ObjectUtils.isEmpty(restTemplate)){
+                restTemplate = new RestTemplate();
+            }
+            bytes = restTemplate.getForObject(play_path, byte[].class);
 
-                // 下载音频文件
-                if(ObjectUtils.isEmpty(restTemplate)){
-                    restTemplate = new RestTemplate();
-                }
-                bytes = restTemplate.getForObject(play_path, byte[].class);
+            String soundTitle = album_id+"_"+id+"_"+title.replaceAll("[\\\\/:*?\"<>|]", "-");
 
-                String soundTitle = album_id+"_"+id+"_"+title.replaceAll("[\\\\/:*?\"<>|]", "-");
+            soundFilePath = filePath+File.separator+nickname.replaceAll("[\\\\/:*?\"<>|]", "-")+File.separator+album_title.replaceAll("[\\\\/:*?\"<>|]", "-")+File.separator+soundTitle+"."+suffix;
 
-                soundFilePath = filePath+File.separator+nickname.replaceAll("[\\\\/:*?\"<>|]", "-")+File.separator+album_title.replaceAll("[\\\\/:*?\"<>|]", "-")+File.separator+soundTitle+"."+suffix;
-
-                if(!StringUtils.isEmpty(soundFilePath) && !ObjectUtils.isEmpty(bytes)){
-                    // 保存文件
-                    FileUtils.writeByteArrayToFile(new File(soundFilePath), bytes);
-                }
-
+            if(!StringUtils.isEmpty(soundFilePath) && !ObjectUtils.isEmpty(bytes)){
+                File soundFileOfM4a = new File(soundFilePath);
+                // 保存文件
+                FileUtils.writeByteArrayToFile(soundFileOfM4a, bytes);
+                resultItems.put("soundFileOfM4a", soundFileOfM4a);
             }
         } catch (IOException e) {
             logger.error("下载音频文件{}异常：{}", soundFilePath, e.getMessage(), e);
