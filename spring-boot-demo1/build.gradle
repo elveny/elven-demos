@@ -105,6 +105,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.bytedeco/javacv-platform
     compile group: 'org.bytedeco', name: 'javacv-platform', version: '1.4.1'
 
+    // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '1.1.0'
+
+
 
 
 
