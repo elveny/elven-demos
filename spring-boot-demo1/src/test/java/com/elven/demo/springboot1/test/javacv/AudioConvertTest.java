@@ -40,8 +40,8 @@ public class AudioConvertTest {
 
     public static void jave() throws EncoderException {
         long start = System.nanoTime();
-        File source = new File("E:\\temp\\20180415\\夏朗大梦想\\小宝贝大梦想：亲子互动讲堂\\7508870_46432383_【梦想故事汇】小雨滴-童话剧《国王爸爸》.m4a");
-        File target = new File("E:\\temp\\20180415\\夏朗大梦想\\小宝贝大梦想：亲子互动讲堂\\7508870_46432383_【梦想故事汇】小雨滴-童话剧《国王爸爸》_jave.mp3");
+        File source = new File("E:\\temp\\error\\6436989_52346986_宫西达也——《千万别放弃》下集.m4a");
+        File target = new File("E:\\temp\\error\\6436989_52346986_宫西达也——《千万别放弃》下集_jave.mp3");
         AudioAttributes audio = new AudioAttributes();
         audio.setCodec("libmp3lame");
         audio.setBitRate(new Integer(64000));
@@ -56,18 +56,31 @@ public class AudioConvertTest {
         System.out.println("花费时长："+(end - start));
     }
 
-    public static void javacv(){
+    public static void javacv8000(){
         long start = System.nanoTime();
-        AudioConvert.convert("E:\\temp\\20180415\\夏朗大梦想\\小宝贝大梦想：亲子互动讲堂\\7508870_46432383_【梦想故事汇】小雨滴-童话剧《国王爸爸》.m4a", "E:\\temp\\20180415\\夏朗大梦想\\小宝贝大梦想：亲子互动讲堂\\7508870_46432383_【梦想故事汇】小雨滴-童话剧《国王爸爸》_javacv.mp3", avcodec.AV_CODEC_ID_MP3, 8000, 64000, 2);
+        String inputFile = "E:\\temp\\error\\6436989_52346986_宫西达也——《千万别放弃》下集.m4a";
+        String outputFile = "E:\\temp\\error\\6436989_52346986_宫西达也——《千万别放弃》下集_javacv_8000.mp3";
+        AudioConvert.convert(inputFile, outputFile, avcodec.AV_CODEC_ID_MP3, 8000, 64000, 2);
         long end = System.nanoTime();
-        System.out.println("花费时长："+(end - start));
+        System.out.println("8000花费时长："+(end - start));
+    }
+
+    public static void javacv44100(){
+        long start = System.nanoTime();
+        String inputFile = "E:\\temp\\error\\6436989_52346986_宫西达也——《千万别放弃》下集.m4a";
+        String outputFile = "E:\\temp\\error\\6436989_52346986_宫西达也——《千万别放弃》下集_javacv_44100.mp3";
+        AudioConvert.convert(inputFile, outputFile, avcodec.AV_CODEC_ID_MP3, 44100, 64000, 2);
+        long end = System.nanoTime();
+        System.out.println("44100花费时长："+(end - start));
     }
 
     public static void main(String[] args) throws EncoderException {
 
         jave();
 
-        javacv();
+//        javacv8000();
+
+        javacv44100();
 
     }
 
