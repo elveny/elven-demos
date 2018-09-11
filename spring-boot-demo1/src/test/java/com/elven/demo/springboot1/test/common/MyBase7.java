@@ -6,7 +6,9 @@ package com.elven.demo.springboot1.test.common;
 
 import org.junit.Test;
 
+import java.io.*;
 import java.util.Date;
+import java.util.Properties;
 
 /**
  * @Filename MyBase7.java
@@ -34,5 +36,16 @@ public class MyBase7 {
     public void firstUseOn(){
         long time = new Date().getTime();
         System.out.println(time/1000);
+    }
+
+    @Test
+    public void auto() throws IOException {
+        InputStream is = new BufferedInputStream(new FileInputStream("D:\\Program Files\\wjjsoft\\nyfedit7\\myBase.ini"));
+        Properties properties = new MyProperties();
+        properties.load(is);
+        System.out.println(properties.getProperty("App.UserLic.FirstUseOn"));
+        properties.setProperty("App.UserLic.FirstUseOn", String.valueOf(new Date().getTime()/1000));
+        properties.setProperty("App.UserLic.LaunchNum", "1");
+        properties.store(new BufferedOutputStream(new FileOutputStream("D:\\Program Files\\wjjsoft\\nyfedit7\\myBase.ini")), "");
     }
 }
