@@ -1,4 +1,4 @@
-package site.elven.test.netty.nio;
+package site.elven.test.netty.io.nio;
 
 public class TimeServer {
     public static void main(String[] args) {

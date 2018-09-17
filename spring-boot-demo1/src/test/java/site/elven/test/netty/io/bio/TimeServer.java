@@ -1,4 +1,4 @@
-package site.elven.test.netty.bio;
+package site.elven.test.netty.io.bio;
 
 import java.io.IOException;
 import java.net.ServerSocket;

@@ -1,4 +1,4 @@
-package site.elven.test.netty.nio;
+package site.elven.test.netty.io.nio;
 
 import org.apache.commons.lang3.StringUtils;
 
