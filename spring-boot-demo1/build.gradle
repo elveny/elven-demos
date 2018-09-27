@@ -119,5 +119,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.jboss.marshalling/jboss-marshalling
     compile group: 'org.jboss.marshalling', name: 'jboss-marshalling', version: '2.0.6.Final'
 
+    // https://mvnrepository.com/artifact/org.msgpack/msgpack
+    compile group: 'org.msgpack', name: 'msgpack', version: '0.6.12'
+
 
 }
