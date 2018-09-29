@@ -1,4 +1,4 @@
-package site.elven.test.netty.example.echo;
+package site.elven.test.netty.example.quickstart.echo1;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -12,8 +12,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         String body = (String)msg;
-        println("This is " + ++counter + " times receive client: "+body);
-        body += "$_";
+        println("This is " + ++counter + " times receive client: " + body);
         ByteBuf echo = Unpooled.copiedBuffer(body.getBytes());
         ctx.writeAndFlush(echo);
 

@@ -1,4 +1,4 @@
-package site.elven.test.netty.example.echo;
+package site.elven.test.netty.example.quickstart.echo1;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -8,7 +8,7 @@ import static site.elven.test.util.PrintUtil.println;
 
 public class EchoClinetHandler extends ChannelInboundHandlerAdapter {
     private int counter;
-    private final static String HELLO = "hi, elven.$_";
+    private final static String HELLO = "hi, elven.";
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

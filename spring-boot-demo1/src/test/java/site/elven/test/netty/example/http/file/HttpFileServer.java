@@ -1,4 +1,4 @@
-package site.elven.test.netty.example.http;
+package site.elven.test.netty.example.http.file;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
@@ -26,7 +26,7 @@ public class HttpFileServer {
                         .addLast("http-aggregator", new HttpObjectAggregator(65536))
                         .addLast("http-encoder", new HttpResponseEncoder())
                         .addLast("http-chunk", new ChunkedWriteHandler())
-                        .addLast("fileServerHandler", new HttpFileServerHandler("D:\\code\\java\\elven\\elven-demos\\netty-demo"));
+                        .addLast("fileServerHandler", new HttpFileServerHandler("/test1/src"));
             }
         };
 

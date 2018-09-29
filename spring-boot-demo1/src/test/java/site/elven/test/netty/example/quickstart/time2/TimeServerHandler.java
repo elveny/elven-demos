@@ -1,4 +1,4 @@
-package site.elven.test.netty.example.time1;
+package site.elven.test.netty.example.quickstart.time2;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -14,10 +14,7 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
     private int counter ;
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws UnsupportedEncodingException {
-        ByteBuf buf = (ByteBuf) msg;
-        byte[] req = new byte[buf.readableBytes()];
-        buf.readBytes(req);
-        String body = new String(req, "UTF-8").substring(0, req.length - System.getProperty("line.separator").length());
+        String body = (String) msg;
         println("The time server receive request : "+body + "; the counter is: "+ ++counter);
         String currentTime = "query current time".equals(body) ? new Date().toString() : "BAD REQUEST";
         currentTime = currentTime + System.getProperty("line.separator");

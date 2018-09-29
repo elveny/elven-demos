@@ -1,4 +1,4 @@
-package site.elven.test.netty.example.time;
+package site.elven.test.netty.example.quickstart.time;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;

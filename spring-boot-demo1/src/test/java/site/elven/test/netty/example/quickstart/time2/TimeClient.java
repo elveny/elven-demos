@@ -1,7 +1,9 @@
-package site.elven.test.netty.example.time1;
+package site.elven.test.netty.example.quickstart.time2;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
 import site.elven.test.netty.common.utils.NettyHelper;
 
 public class TimeClient {
@@ -11,7 +13,9 @@ public class TimeClient {
         ChannelInitializer channelInitializer = new ChannelInitializer<SocketChannel>() {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
-                ch.pipeline().addLast(new TimeClientHandler());
+                ch.pipeline().addLast(new LineBasedFrameDecoder(1024))
+                        .addLast(new StringDecoder())
+                        .addLast(new TimeClientHandler());
             }
         };
         NettyHelper.client(host, port, channelInitializer);

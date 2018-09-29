@@ -1,4 +1,4 @@
-package site.elven.test.netty.example.time2;
+package site.elven.test.netty.example.quickstart.time2;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

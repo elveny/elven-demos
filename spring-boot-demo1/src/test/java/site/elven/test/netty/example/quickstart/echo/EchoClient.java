@@ -1,4 +1,4 @@
-package site.elven.test.netty.example.echo;
+package site.elven.test.netty.example.quickstart.echo;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

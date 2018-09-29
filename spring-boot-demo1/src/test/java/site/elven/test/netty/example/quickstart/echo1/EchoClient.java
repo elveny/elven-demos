@@ -1,4 +1,4 @@
-package site.elven.test.netty.example.echo1;
+package site.elven.test.netty.example.quickstart.echo1;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
