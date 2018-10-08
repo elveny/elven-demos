@@ -16,7 +16,7 @@ public class HttpFileServer {
         String name = "HttpFileServer";
         String host = null;
         int port = 8080;
-        String successMsg = "";
+        String successMsg = "请在浏览器中访问：http://localhost:"+port+"/test1/src/";
         String failureMsg = "";
 
         ChannelInitializer channelInitializer = new ChannelInitializer<SocketChannel>(){
