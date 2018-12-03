@@ -120,7 +120,7 @@ public class TestController {
     public String httpClientTest(@PathVariable("name") String name){
         String rsp = "";
         try {
-            rsp = httpClientTool.get("http://gitlab.msxf.com/");
+            rsp = httpClientTool.get("http://gitlab.elven.site/");
         } catch (IOException e) {
             e.printStackTrace();
         }
