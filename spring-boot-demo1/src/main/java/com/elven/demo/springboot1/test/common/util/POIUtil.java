@@ -4,6 +4,7 @@
  */
 package com.elven.demo.springboot1.test.common.util;
 
+import com.google.common.collect.Lists;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -78,17 +79,18 @@ public class POIUtil {
                 while (rows.hasNext()){
                     HSSFRow row = (HSSFRow) rows.next();
 
-                    // 迭代每一行的每一列数据
-                    Iterator<Cell> cells = row.iterator();
-                    String[] cellData = new String[row.getLastCellNum()];
-                    int cellNum = 0;
-                    while (cells.hasNext()){
-                        HSSFCell cell = (HSSFCell) cells.next();
+                    if(row.getLastCellNum() > 0){
+                        // 迭代每一行的每一列数据
+                        Iterator<Cell> cells = row.iterator();
+                        String[] cellData = new String[row.getLastCellNum()];
+                        int cellNum = 0;
+                        while (cells.hasNext()){
+                            HSSFCell cell = (HSSFCell) cells.next();
 
-                        cellData[cellNum++] = cell.toString();
+                            cellData[cellNum++] = cell.toString();
+                        }
+                        rowData.add(cellData);
                     }
-
-                    rowData.add(cellData);
                 }
 
                 result.put(sheetName, rowData);
@@ -114,17 +116,95 @@ public class POIUtil {
                 while (rows.hasNext()){
                     XSSFRow row = (XSSFRow) rows.next();
 
-                    // 迭代每一行的每一列数据
-                    Iterator<Cell> cells = row.iterator();
-                    String[] cellData = new String[row.getLastCellNum()];
-                    int cellNum = 0;
-                    while (cells.hasNext()){
-                        XSSFCell cell = (XSSFCell) cells.next();
+                    if(row.getLastCellNum() > 0 ){
+                        // 迭代每一行的每一列数据
+                        Iterator<Cell> cells = row.iterator();
+                        String[] cellData = new String[row.getLastCellNum()];
+                        int cellNum = 0;
+                        while (cells.hasNext()){
+                            XSSFCell cell = (XSSFCell) cells.next();
 
-                        cellData[cellNum++] = cell.toString();
+                            cellData[cellNum++] = cell.toString();
+                        }
+
+                        rowData.add(cellData);
                     }
 
-                    rowData.add(cellData);
+                }
+
+                result.put(sheetName, rowData);
+            }
+        }
+        else {
+            throw new IOException(ERROR_FILE_TYPE);
+        }
+
+        return result;
+    }
+
+    public static Map<String, List<Cell[]>> readCell(InputStream is, String suffix) throws IOException {
+
+        Map<String, List<Cell[]>> result = new HashMap<>(16);
+
+        // 校验文件后缀，如果没有适配的文件类型，则抛出异常
+        if(EXCEL_TYPE_XLS.equalsIgnoreCase(suffix)){
+            // 读取excel文件
+            HSSFWorkbook workbook = new HSSFWorkbook(is);
+
+            // 迭代sheet
+            Iterator<Sheet> sheets = workbook.iterator();
+            while (sheets.hasNext()){
+                // 读取每一个sheet的数据
+                HSSFSheet sheet = (HSSFSheet) sheets.next();
+
+                // 读取sheet名称
+                String sheetName = sheet.getSheetName();
+
+                // 迭代sheet的每一行
+                Iterator<Row> rows = sheet.iterator();
+
+                List<Cell[]> rowData = new ArrayList<>();
+                while (rows.hasNext()){
+                    HSSFRow row = (HSSFRow) rows.next();
+
+                    if(row.getLastCellNum() > 0){
+                        // 迭代每一行的每一列数据
+                        Iterator<Cell> cells = row.iterator();
+                        Cell[] cellData = Lists.newArrayList(cells).toArray(new Cell[row.getLastCellNum()]);
+                        rowData.add(cellData);
+                    }
+                }
+
+                result.put(sheetName, rowData);
+            }
+        }
+        else if(EXCEL_TYPE_XLSX.equalsIgnoreCase(suffix)){
+            // 读取excel文件
+            XSSFWorkbook workbook = new XSSFWorkbook(is);
+
+            // 迭代sheet
+            Iterator<Sheet> sheets = workbook.iterator();
+            while (sheets.hasNext()){
+                // 读取每一个sheet的数据
+                XSSFSheet sheet = (XSSFSheet) sheets.next();
+
+                // 读取sheet名称
+                String sheetName = sheet.getSheetName();
+
+                // 迭代sheet的每一行
+                Iterator<Row> rows = sheet.iterator();
+
+                List<Cell[]> rowData = new ArrayList<>();
+                while (rows.hasNext()){
+                    XSSFRow row = (XSSFRow) rows.next();
+
+                    if(row.getLastCellNum() > 0 ){
+                        // 迭代每一行的每一列数据
+                        Iterator<Cell> cells = row.iterator();
+                        Cell[] cellData = Lists.newArrayList(cells).toArray(new Cell[row.getLastCellNum()]);
+                        rowData.add(cellData);
+                    }
+
                 }
 
                 result.put(sheetName, rowData);
